@@ -1,3 +1,5 @@
+![Promptify header](assets/header.png)
+
 # Promptify - The Grammarly for Prompts 
 
 > Transform any text into clear, structured prompts that get better AI results. One keystroke to enhance your prompts for any AI tool.
