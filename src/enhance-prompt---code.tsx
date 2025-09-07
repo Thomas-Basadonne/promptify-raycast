@@ -1,5 +1,1 @@
-import { Detail } from "@raycast/api";
-
-export default function Command() {
-  return <Detail markdown="# Hello World" />;
-}
+export { default } from './commands/enhance-prompt-code';
