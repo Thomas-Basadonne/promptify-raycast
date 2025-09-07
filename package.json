@@ -3,7 +3,7 @@
   "name": "promptify",
   "title": "Promptify",
   "description": "One-key prompt enhancer for any AI. \nSelect → copy → Promptify shows a clean, structured version. \nWorks locally with Ollama. \nHistory + JSON export.",
-  "icon": "extension-icon.png",
+  "icon": "extension-icon-512.png",
   "author": "thomas-basadonne",
   "license": "MIT",
   "commands": [
