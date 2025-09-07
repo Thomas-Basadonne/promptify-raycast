@@ -253,23 +253,33 @@ npm run dev
 
 ## 🗺️ Roadmap
 
-### v1.1 - Enhanced Experience
-- [ ] Custom preset creation and management
-- [ ] Improved error messages and recovery
-- [ ] Performance optimizations
-- [ ] Better loading states
+### v1.1 — UX & polish (near-term)
+- Custom presets: create and manage user-defined prompt presets
+- Templates & built-in templates: save common prompt patterns as reusable templates
+- Improved error handling & loading states: clearer messages and better UX during long operations
+- Performance optimizations: faster load times and snappier UI
 
-### v1.2 - Extended Functionality  
-- [ ] OpenAI/Anthropic provider support
-- [ ] Batch prompt processing
-- [ ] Preset sharing and import
-- [ ] Advanced export formats
+### v1.2 — Interoperability & export (next)
+- OpenAI / Anthropic provider support: add non-local provider options
+- Batch prompt processing: process multiple prompts in one action
+- Advanced export: bulk export, multiple formats (JSON variants, CSV, etc.)
+- Import JSON / preset sharing: import/export presets and share templates
 
-### v2.0 - Enterprise Features
-- [ ] Team preset libraries
-- [ ] Cloud sync for settings
-- [ ] Usage analytics
-- [ ] API integrations
+### v1.3 — Organize & search
+- Smart Search: AI-powered semantic search across history and templates
+- Categories / tagging: organize prompts by project, tag, or category
+- Auto-cleanup policy: configurable retention (30/90/365 days)
+
+### v2.0 — Teams & Cloud
+- Cloud sync: cross-device history and settings synchronization
+- Team libraries & sharing: shared preset libraries for teams
+- API & third-party integrations: public API and integrations with external tools
+- Analytics & usage insights: usage metrics, top presets, and performance dashboards
+
+### Longer-term
+- Real-time collaboration: multi-user editing and shared sessions
+- Microservices / scalable backend: decouple the enhancement engine for scale
+- Plugin marketplace: third-party plugins for presets and providers
 
 ## 📄 License
 
