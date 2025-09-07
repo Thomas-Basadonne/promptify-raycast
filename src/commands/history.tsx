@@ -148,6 +148,47 @@ export default function History() {
     }
   };
 
+  const handleExportAllJson = async () => {
+    if (history.length === 0) {
+      await showToast({
+        style: Toast.Style.Failure,
+        title: "No History to Export",
+        message: "History is empty"
+      });
+      return;
+    }
+
+    const exportData = {
+      metadata: {
+        exported_at: new Date().toISOString(),
+        tool: "Promptify",
+        version: "1.0.0",
+        total_items: history.length
+      },
+      history: history.map(item => ({
+        id: item.id,
+        timestamp: item.timestamp,
+        created: new Date(item.timestamp).toISOString(),
+        preset: item.presetId,
+        original: item.input,
+        enhanced: item.output,
+        metadata: {
+          ...item.metadata,
+          original_length: item.input.length,
+          enhanced_length: item.output.length,
+          enhancement_ratio: (item.output.length / item.input.length).toFixed(2)
+        }
+      }))
+    };
+
+    await Clipboard.copy(JSON.stringify(exportData, null, 2));
+    await showToast({
+      style: Toast.Style.Success,
+      title: "All History Exported",
+      message: `${history.length} items copied as JSON`
+    });
+  };
+
   const getPresetIcon = (presetId: string) => {
     switch (presetId) {
       case 'general':
@@ -232,6 +273,12 @@ export default function History() {
                     onAction={() => handleExportJson(item)}
                     icon={Icon.Code}
                     shortcut={{ modifiers: ["cmd"], key: "j" }}
+                  />
+                  <Action
+                    title="Export All as JSON"
+                    onAction={handleExportAllJson}
+                    icon={Icon.Download}
+                    shortcut={{ modifiers: ["cmd", "shift"], key: "j" }}
                   />
                   <Action
                     title="Delete Item"
