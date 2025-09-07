@@ -82,6 +82,21 @@
       "required": false,
       "default": true,
       "label": "Enable history saving"
+    },
+    {
+      "name": "maxHistoryItems",
+      "title": "Max History Items",
+      "description": "Maximum number of items to keep in history (10-100)",
+      "type": "dropdown",
+      "required": false,
+      "default": "50",
+      "data": [
+        { "title": "10 items", "value": "10" },
+        { "title": "25 items", "value": "25" },
+        { "title": "50 items (recommended)", "value": "50" },
+        { "title": "75 items", "value": "75" },
+        { "title": "100 items", "value": "100" }
+      ]
     }
   ],
   "dependencies": {

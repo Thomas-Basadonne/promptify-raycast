@@ -213,7 +213,7 @@ export default function History() {
   return (
     <List 
       isLoading={isLoading}
-      searchBarPlaceholder="Search history..."
+      searchBarPlaceholder={`Search ${history.length} history items...`}
       actions={
         history.length > 0 ? (
           <ActionPanel>

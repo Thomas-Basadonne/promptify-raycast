@@ -1,12 +1,18 @@
-import { LocalStorage } from '@raycast/api';
+import { LocalStorage, getPreferenceValues } from '@raycast/api';
 import { HistoryItem, AppSettings, PresetConfig, StorageError } from './types';
-import { STORAGE_KEYS } from './constants';
+import { STORAGE_KEYS, VALIDATION } from './constants';
 import { generateId } from '../utils/helpers';
 
 export class StorageManager {
   // History operations
   static async saveToHistory(item: Omit<HistoryItem, 'id' | 'timestamp'>): Promise<string> {
     try {
+      const preferences = getPreferenceValues<{ maxHistoryItems: string }>();
+      const maxItems = Math.min(
+        parseInt(preferences.maxHistoryItems || '50'),
+        VALIDATION.MAX_HISTORY_ITEMS_LIMIT
+      );
+
       const id = generateId('hist');
       const historyItem: HistoryItem = {
         ...item,
@@ -15,7 +21,7 @@ export class StorageManager {
       };
 
       const history = await this.getHistory();
-      const updatedHistory = [historyItem, ...history].slice(0, 100); // Keep last 100
+      const updatedHistory = [historyItem, ...history].slice(0, maxItems);
 
       await LocalStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(updatedHistory));
       return id;
