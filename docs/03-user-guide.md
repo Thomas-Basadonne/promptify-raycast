@@ -314,7 +314,7 @@ Create reusable templates:
 
 ### Automatic Saving
 - All enhancements are saved automatically (unless disabled)
-- Maximum 100 items by default (configurable)
+- Maximum 50 items by default (configurable)
 - Oldest items are removed when limit is reached
 
 ### Search and Filter
@@ -334,7 +334,13 @@ Search functionality:
 #### Bulk Export
 ```json
 {
-  "prompts": [
+  "metadata": {
+    "exported_at": "2025-09-07T15:00:00Z",
+    "tool": "Promptify",
+    "version": "1.0.0",
+    "total_items": 3
+  },
+  "history": [
     {
       "id": "hist_1234567890_abc123",
       "timestamp": 1694123456789,

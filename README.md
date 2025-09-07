@@ -116,6 +116,7 @@ Access via Raycast Preferences → Extensions → Promptify:
 - **Ollama Model**: `llama3.2:3b` (default)
 - **Auto Paste**: Automatically paste after copying (optional)
 - **Save to History**: Auto-save enhanced prompts (default: enabled)
+- **Max History Items**: Maximum items to keep in history (default: 50, configurable in preferences)
 
 ## 📋 Commands
 

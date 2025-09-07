@@ -62,6 +62,7 @@ Search by:
 | Copy Original | `⌘ + Shift + C` | Copy the original input |
 | Paste Enhanced | `⌘ + V` | Paste to active app |
 | Export JSON | `⌘ + J` | Copy as structured JSON |
+| Export All (Bulk) | `⌘ + Shift + J` | Copy entire history as a single JSON export |
 | Delete Item | `⌘ + Backspace` | Remove from history |
 | Refresh | `⌘ + R` | Reload history list |
 
@@ -108,25 +109,39 @@ Search by:
 }
 ```
 
-### Bulk Export (Future Feature)
+### Bulk Export (All History)
+
+The History view supports exporting the entire saved history as a single JSON payload. Use the **Export All as JSON** action (or press `⌘ + Shift + J`) to copy the full export to your clipboard. The export includes a top-level `metadata` block and a `history` array with each saved prompt.
+
+Example bulk export format:
+
 ```json
 {
-  "exported_at": "2024-09-07T15:00:00Z",
-  "total_items": 25,
-  "prompts": [
-    // Array of individual prompt objects
-  ],
-  "summary": {
-    "by_preset": {
-      "general": 15,
-      "images": 7, 
-      "code": 3
-    },
-    "date_range": {
-      "oldest": "2024-08-15T10:00:00Z",
-      "newest": "2024-09-07T15:00:00Z"
+  "metadata": {
+    "exported_at": "2025-09-07T15:00:00Z",
+    "tool": "Promptify",
+    "version": "1.0.0",
+    "total_items": 25
+  },
+  "history": [
+    {
+      "id": "hist_abc123",
+      "timestamp": 1725715800000,
+      "created": "2025-09-07T14:30:00.000Z",
+      "preset": "general",
+      "original": "Write about sustainable energy",
+      "enhanced": "# 🎯 Objective\nCreate a comprehensive...",
+      "metadata": {
+        "provider": "ollama",
+        "model": "llama3.2:3b",
+        "processingTime": 2341,
+        "original_length": 45,
+        "enhanced_length": 520,
+        "enhancement_ratio": "11.56"
+      }
     }
-  }
+    // ...more items
+  ]
 }
 ```
 
@@ -197,8 +212,9 @@ Access via Raycast → Settings → Extensions → Promptify:
 - **Disabled**: Manual saving only
 
 #### History Limit
-- **Default**: 100 items
-- **Range**: 50-500 items
+#### History Limit
+- **Default**: 50 items
+- **Range**: 10-100 items
 - **Behavior**: Oldest items removed when limit reached
 
 #### Auto-cleanup
@@ -209,8 +225,8 @@ Access via Raycast → Settings → Extensions → Promptify:
 ### Storage Information
 ```
 Location: Raycast LocalStorage (encrypted)
-Size: ~1KB per prompt average
-100 prompts ≈ 100KB total storage
+Size: ~1KB per prompt average (varies with prompt length and metadata)
+Default (50 prompts) ≈ 50KB total storage (estimate)
 Privacy: Never leaves your machine
 ```
 
