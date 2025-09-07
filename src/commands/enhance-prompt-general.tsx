@@ -98,7 +98,7 @@ export default function EnhancePromptGeneral() {
   };
 
   const handleExportJson = () => {
-    if (!output || !clipboardText) return;
+    if (!output || !clipboardText) return "";
     
     const jsonData = exportAsJson(clipboardText, output, preset.id);
     return jsonData;

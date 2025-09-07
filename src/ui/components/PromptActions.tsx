@@ -13,7 +13,7 @@ interface PromptActionsProps {
   input: string;
   output: string;
   onSave?: () => Promise<void>;
-  onExportJson?: () => void;
+  onExportJson?: () => string;
   disabled?: boolean;
 }
 
@@ -73,9 +73,18 @@ export function PromptActions({
     });
   };
 
-  const handleExportJson = () => {
+  const handleExportJson = async () => {
     if (disabled || !output || !onExportJson) return;
-    onExportJson();
+    
+    const jsonData = onExportJson();
+    if (jsonData && jsonData.trim() !== "") {
+      await Clipboard.copy(jsonData);
+      await showToast({
+        style: Toast.Style.Success,
+        title: SUCCESS_MESSAGES.COPIED_TO_CLIPBOARD,
+        message: "JSON data copied",
+      });
+    }
   };
 
   const handleSave = async () => {
