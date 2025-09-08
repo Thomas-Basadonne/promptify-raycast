@@ -12,6 +12,7 @@
 - **🔒 Privacy First**: Works 100% locally with Ollama - your data never leaves your machine
 - **📚 History & Export**: Save and export enhanced prompts as JSON for reuse
 - **⚡ One-Click Workflow**: Copy text → Run command → Get enhanced version → Paste anywhere
+- **🔁 Custom Presets**: Create, manage and share reusable prompt templates (see Presets Guide → Custom Presets)
 
 ## 🚀 Quick Start
 
@@ -30,7 +31,7 @@ New to Promptify? Start here:
 
 ## 📖 How It Works
 
-Promptify transforms rough ideas into structured, effective prompts using three specialized presets:
+Promptify transforms rough ideas into structured, effective prompts using three specialized presets. You can also create Custom Presets to define and reuse your own templates — see the Custom Presets section in the Presets Guide: `docs/04-presets-guide.md#custom-presets`.
 
 **📚 [Complete Presets Guide](docs/04-presets-guide.md)** - Deep dive into all preset types with examples
 
@@ -129,6 +130,7 @@ Access via Raycast Preferences → Extensions → Promptify:
 | **Enhance Prompt — Images** | Optimize for image generation models | Set in Raycast |
 | **Enhance Prompt — Code** | Technical prompts for coding assistance | Set in Raycast |
 | **History** | Browse, copy, and manage saved prompts | Set in Raycast |
+| **Manage Presets** | Create, edit, import/export and use custom presets | Set in Raycast |
 
 ## 💡 Use Cases
 
@@ -254,7 +256,7 @@ npm run dev
 ## 🗺️ Roadmap
 
 ### v1.1 — UX & polish (near-term)
-- Custom presets: create and manage user-defined prompt presets
+- Custom presets: create and manage user-defined prompt presets — Implemented
 - Templates & built-in templates: save common prompt patterns as reusable templates
 - Improved error handling & loading states: clearer messages and better UX during long operations
 - Performance optimizations: faster load times and snappier UI

@@ -366,34 +366,107 @@ Round 2: Enhanced output as new input → More detailed output
 Round 3: Specific aspects → Final refinement
 ```
 
-## 📈 Measuring Preset Effectiveness
+## Custom Presets
 
-### Quality Indicators
+Custom presets let you save, reuse, and share your own prompt templates in Promptify. They are templates that the built-in enhancement commands use to transform your raw text into structured prompts. Use custom presets when you have repetitive prompt formats or specialized workflows (team conventions, project-specific templates, etc.).
 
-**General Preset Success**:
-- ✅ Clear, actionable objectives
-- ✅ Well-defined target audience
-- ✅ Specific format requirements
-- ✅ Measurable success criteria
+### Where to manage them
 
-**Images Preset Success**:
-- ✅ Detailed visual specifications
-- ✅ Technical parameters included
-- ✅ Style and mood clearly defined
-- ✅ Negative prompts prevent common issues
+Open the **Manage Presets** command from the Raycast command palette. From there you can:
 
-**Code Preset Success**:
-- ✅ Complete technical requirements
-- ✅ Specific technology versions
-- ✅ Security and performance considerations
-- ✅ Testing and documentation needs
+- Create a new preset (name, optional description, and the system / template prompt)
+- Edit an existing preset
+- Duplicate a preset as a starting point
+- Delete a preset
+- Export a single preset as JSON
+- Export all custom presets (bulk export)
+- Import a single preset or a bulk export via clipboard or file
+- Immediately use any preset to enhance the current clipboard content
 
-### Optimization Tips
+All actions provide success/failure toasts for quick feedback.
 
-1. **Save Successful Patterns**: Export prompts that work well
-2. **Build Template Library**: Create variations for common use cases
-3. **Track Results**: Note which enhancements produce the best AI outputs
-4. **Iterate and Improve**: Refine your input based on results
+### Template syntax and placeholders
+
+Presets are plain text templates with simple placeholder support. The most important placeholder is `{{input}}` — this is where the user's selected text (or clipboard text) is inserted into the template when the preset runs.
+
+- `{{input}}` — REQUIRED for correct behavior. Presets are validated to ensure `{{input}}` is present. If a template does not contain `{{input}}` the editor will warn you and saving will show a validation error.
+- `{{key}}` or `{{key|default}}` — Optional named placeholders. When present, the preset renderer will replace `{{key}}` if a value is supplied; if not, the `default` after the pipe is used. This is useful for fields like `{{tone|neutral}}` or `{{audience|developers}}`.
+
+Example template (General):
+
+```
+# 🎯 Objective
+Create an informative article about: {{input}}
+
+# 📋 Context
+Target audience: {{audience|general readers}}
+Tone: {{tone|friendly}}
+
+# ✅ Success Criteria
+- Clear sections and headings
+- Actionable takeaways
+```
+
+Example template (Code):
+
+```
+# 💻 Task
+Refactor or implement: {{input}}
+
+# 🛠️ Constraints
+- Language: {{language|TypeScript}}
+- Target framework: {{framework|React}}
+```
+
+Renderer behavior note: as a safety fallback, if a preset somehow lacks `{{input}}` at runtime the extension will append the user input to the end of the rendered prompt so the user's text is not silently dropped. However, the editor enforces `{{input}}` at save-time and will warn — adding `{{input}}` to the template is still the correct approach.
+
+### Import / Export and sharing
+
+- Export single preset: saves one preset to a JSON blob you can copy or share.
+- Export all: creates a bulk JSON export containing all custom presets (useful for backups and sharing across machines/teammates).
+- Import single / bulk: the import UI accepts either a single preset JSON or the bulk export. The importer will validate incoming presets and report any invalid entries.
+
+Tips:
+- You can paste exported JSON directly into the import dialog or use clipboard import for quick sharing.
+- Duplicate first if you want to tweak a shared preset without overwriting the original.
+
+### Persistence and limits
+
+Custom presets are stored locally in Raycast's local storage. They persist across Raycast and system restarts. There is a small limit to keep things responsive:
+
+- Maximum custom presets: 20 (Least-recently-used trimming is applied when the limit is exceeded)
+- Storage key (internal): `promptify.presets.custom` (for debugging/backups only)
+
+If you need more than 20 presets, export them and import as needed or keep a separate JSON file with your library.
+
+### How to use a custom preset
+
+1. Copy the text you want to enhance.
+2. Run one of the enhancement commands (for example: Enhance Prompt (General)).
+3. In the preset selector choose a built-in or any of your custom presets.
+4. The command will render the template by replacing placeholders and send the final prompt to the AI provider.
+5. Enhanced output can be copied, auto-pasted (preference), and saved to history.
+
+### Validation and common errors
+
+- Missing name or missing `{{input}}` will block saving a preset and show a validation error.
+- Importing invalid JSON will be rejected with an error message; check that the JSON matches the exported structure.
+- If an enhanced result looks wrong, inspect the preset for typos in placeholders or missing fields.
+
+### Best practices and examples
+
+- Always include `{{input}}` where you expect the user's content to appear.
+- Use named placeholders with defaults for optional configuration: `{{audience|developers}}`.
+- Keep templates focused — shorter templates are easier to maintain and less likely to produce unexpected outputs.
+- Use exports to backup team libraries and share templates with teammates.
+
+### Troubleshooting
+
+- "My input disappeared": check that the preset contains `{{input}}`. If not, add it or re-order the template so the placeholder is included. The fallback appends input, but the editor's validation aims to prevent this class of issues.
+- "Import failed": verify the JSON is a preset or a bulk export produced by Promptify. Try exporting from the source machine and re-importing.
+- "I hit a shortcut warning": Raycast reserves several system shortcuts; Promptify avoids reserved combos. If you see a reserved shortcut warning, open the preset editor and change the local shortcut in the command definition.
+
+If you want, I can also add a short in-app help snippet inside the preset editor reminding users that `{{input}}` is required and showing examples. Let me know if you prefer that user-facing copy or if you'd like different wording for any section.
 
 ---
 
