@@ -1,4 +1,5 @@
 import { VALIDATION, ERROR_MESSAGES } from '../../core/constants';
+import { PresetConfig } from '../../core/types';
 
 export interface ValidationResult {
   isValid: boolean;
@@ -97,6 +98,69 @@ export function validatePresetId(presetId: string): ValidationResult {
       isValid: false,
       error: 'Invalid preset ID format',
     };
+  }
+
+  return { isValid: true };
+}
+
+export function validatePresetConfig(preset: Partial<PresetConfig>): ValidationResult {
+  // Check required fields
+  if (!preset.name || preset.name.trim().length === 0) {
+    return {
+      isValid: false,
+      error: 'Preset name is required',
+    };
+  }
+
+  if (!preset.systemPrompt || preset.systemPrompt.trim().length === 0) {
+    return {
+      isValid: false,
+      error: 'System prompt is required',
+    };
+  }
+
+  // Validate name length
+  if (preset.name.trim().length > VALIDATION.MAX_PRESET_NAME_LENGTH) {
+    return {
+      isValid: false,
+      error: `Preset name must be ${VALIDATION.MAX_PRESET_NAME_LENGTH} characters or less`,
+    };
+  }
+
+  // Validate system prompt length
+  if (preset.systemPrompt.trim().length > VALIDATION.MAX_PROMPT_LENGTH) {
+    return {
+      isValid: false,
+      error: `System prompt must be ${VALIDATION.MAX_PROMPT_LENGTH} characters or less`,
+    };
+  }
+
+  // Validate description length if provided
+  if (preset.description && preset.description.length > VALIDATION.MAX_PRESET_DESCRIPTION_LENGTH) {
+    return {
+      isValid: false,
+      error: `Description must be ${VALIDATION.MAX_PRESET_DESCRIPTION_LENGTH} characters or less`,
+    };
+  }
+
+  // Validate tags if provided
+  if (preset.tags && preset.tags.length > VALIDATION.MAX_PRESET_TAGS) {
+    return {
+      isValid: false,
+      error: `Maximum ${VALIDATION.MAX_PRESET_TAGS} tags allowed`,
+    };
+  }
+
+  // Validate each tag length
+  if (preset.tags) {
+    for (const tag of preset.tags) {
+      if (tag.length > VALIDATION.MAX_TAG_LENGTH) {
+        return {
+          isValid: false,
+          error: `Tag "${tag}" is too long (max ${VALIDATION.MAX_TAG_LENGTH} characters)`,
+        };
+      }
+    }
   }
 
   return { isValid: true };

@@ -1,6 +1,7 @@
 // Export all UI components
 export * from './components/PromptPreview';
 export * from './components/PromptActions';
+export * from './components/PresetImport';
 
 // Export all hooks
 export * from './hooks/useClipboard';
