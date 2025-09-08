@@ -34,6 +34,13 @@
       "subtitle": "Recent results",
       "description": "Browse the last enhanced prompts. Copy, Paste, Copy JSON, or delete items.",
       "mode": "view"
+    },
+    {
+      "name": "manage-presets",
+      "title": "Manage Presets",
+      "subtitle": "Create, edit, import/export",
+      "description": "Manage custom presets: create new, edit existing, duplicate, import/export JSON, delete. Built-in presets can be duplicated and customized.",
+      "mode": "view"
     }
   ],
   "preferences": [
