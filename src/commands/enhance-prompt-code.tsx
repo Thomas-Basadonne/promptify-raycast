@@ -1,8 +1,10 @@
-import { showToast, Toast } from "@raycast/api";
+import { showToast, Toast, useNavigation } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { useClipboard, useProvider, useHistory, usePreferences, PromptPreview, PromptActions } from "../ui";
 import { PresetManager, BUILT_IN_PRESETS } from "../core/presets";
-import { ClipboardError, ProviderError, NetworkError } from "../core/types";
+import { ClipboardError, ProviderError, NetworkError, PresetConfig } from "../core/types";
+import { usePresetSelection } from "../ui/hooks/usePresetSelection";
+import { PresetSelector } from "../ui/components/PresetSelector";
 
 export default function EnhancePromptCode() {
   const [output, setOutput] = useState<string | null>(null);
@@ -13,17 +15,21 @@ export default function EnhancePromptCode() {
   const { provider, isProviderReady, providerError } = useProvider();
   const { saveToHistory, exportAsJson, isSaving } = useHistory();
   const { saveToHistory: shouldSaveToHistory } = usePreferences();
+  const { push } = useNavigation();
 
-  const preset = BUILT_IN_PRESETS.code;
-  const isLoading = clipboardLoading || !isProviderReady || isEnhancing;
+  // Preset selection with default to code
+  const { selectedPreset, allPresets, loading: presetsLoading, setSelectedPreset } = usePresetSelection('code');
+  
+  const preset = selectedPreset || BUILT_IN_PRESETS.code;
+  const isLoading = clipboardLoading || !isProviderReady || isEnhancing || presetsLoading;
 
   useEffect(() => {
-    if (!clipboardText || !provider || !isProviderReady || clipboardError || providerError) {
+    if (!clipboardText || !provider || !isProviderReady || clipboardError || providerError || !selectedPreset) {
       return;
     }
 
     enhancePrompt();
-  }, [clipboardText, provider, isProviderReady, clipboardError, providerError]);
+  }, [clipboardText, provider, isProviderReady, clipboardError, providerError, selectedPreset]);
 
   const enhancePrompt = async () => {
     if (!provider || !clipboardText) return;
@@ -38,9 +44,20 @@ export default function EnhancePromptCode() {
         throw new Error(validation.error);
       }
 
-      // Enhance the prompt
+      // Render the preset template with input
+      const renderedPrompt = PresetManager.renderPreset(preset, {
+        input: clipboardText,
+        language: 'JavaScript',
+        style: 'clean and readable',
+        include: 'comments and examples',
+      });
+
+      // Enhance the prompt using rendered template
       const startTime = Date.now();
-      const enhancedPrompt = await provider.enhance(clipboardText, preset);
+      const enhancedPrompt = await provider.enhance(clipboardText, {
+        ...preset,
+        systemPrompt: renderedPrompt,
+      });
       const processingTime = Date.now() - startTime;
 
       setOutput(enhancedPrompt);
@@ -104,6 +121,17 @@ export default function EnhancePromptCode() {
     return jsonData;
   };
 
+  const handleChangePreset = () => {
+    push(
+      <PresetSelector
+        presets={allPresets}
+        selectedPreset={selectedPreset}
+        onSelectPreset={setSelectedPreset}
+        title="Choose Code Enhancement Preset"
+      />
+    );
+  };
+
   // Determine the final error to show
   const finalError = clipboardError || providerError || error;
 
@@ -121,7 +149,17 @@ export default function EnhancePromptCode() {
             output={output}
             onSave={shouldSaveToHistory ? undefined : handleSave}
             onExportJson={handleExportJson}
+            onChangePreset={handleChangePreset}
+            currentPreset={preset}
             disabled={isSaving}
+          />
+        ) : finalError ? (
+          <PromptActions
+            input={clipboardText}
+            output=""
+            onChangePreset={handleChangePreset}
+            currentPreset={preset}
+            disabled={true}
           />
         ) : undefined
       }
