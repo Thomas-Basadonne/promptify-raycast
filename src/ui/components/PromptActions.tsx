@@ -4,16 +4,20 @@ import {
   Clipboard, 
   showToast, 
   Toast,
-  getPreferenceValues 
+  getPreferenceValues,
+  Icon
 } from '@raycast/api';
 import React from 'react';
 import { SUCCESS_MESSAGES } from '../../core/constants';
+import { PresetConfig } from '../../core/types';
 
 interface PromptActionsProps {
   input: string;
   output: string;
   onSave?: () => Promise<void>;
   onExportJson?: () => string;
+  onChangePreset?: () => void;
+  currentPreset?: PresetConfig;
   disabled?: boolean;
 }
 
@@ -26,6 +30,8 @@ export function PromptActions({
   output, 
   onSave, 
   onExportJson, 
+  onChangePreset,
+  currentPreset,
   disabled = false 
 }: PromptActionsProps) {
   const preferences = getPreferenceValues<UIPreferences>();
@@ -111,27 +117,42 @@ export function PromptActions({
       <ActionPanel.Section title="Copy & Paste">
         <Action
           title="Copy Enhanced Prompt"
+          icon={Icon.Clipboard}
           onAction={handleCopyEnhanced}
           shortcut={{ modifiers: ['cmd'], key: 'c' }}
         />
         {preferences.autoPaste ? null : (
           <Action
             title="Paste Enhanced Prompt"
+            icon={Icon.Download}
             onAction={handlePaste}
             shortcut={{ modifiers: ['cmd'], key: 'v' }}
           />
         )}
         <Action
           title="Copy Original Prompt"
+          icon={Icon.Clipboard}
           onAction={handleCopyOriginal}
           shortcut={{ modifiers: ['cmd', 'shift'], key: 'c' }}
         />
       </ActionPanel.Section>
 
+      {onChangePreset && (
+        <ActionPanel.Section title="Preset">
+          <Action
+            title={`Change Preset (${currentPreset?.name || 'Unknown'})`}
+            icon={Icon.Gear}
+            onAction={onChangePreset}
+            shortcut={{ modifiers: ['cmd', 'shift'], key: 'p' }}
+          />
+        </ActionPanel.Section>
+      )}
+
       <ActionPanel.Section title="Export & Save">
         {onExportJson && (
           <Action
             title="Copy as JSON"
+            icon={Icon.Download}
             onAction={handleExportJson}
             shortcut={{ modifiers: ['cmd'], key: 'j' }}
           />
@@ -139,6 +160,7 @@ export function PromptActions({
         {onSave && (
           <Action
             title="Save to History"
+            icon={Icon.SaveDocument}
             onAction={handleSave}
             shortcut={{ modifiers: ['cmd'], key: 's' }}
           />
