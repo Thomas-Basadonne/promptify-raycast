@@ -117,18 +117,25 @@ export class PresetManager {
   static async getAllPresets(): Promise<PresetConfig[]> {
     const builtInPresets = this.getBuiltInPresets();
     const customPresets = await StorageManager.getCustomPresets();
-    return [...builtInPresets, ...customPresets];
+
+    // merge: custom presets override built-in presets with same id
+    const map: Record<string, PresetConfig> = {};
+    for (const p of builtInPresets) map[p.id] = p;
+    for (const p of customPresets) map[p.id] = p;
+    return Object.values(map);
   }
 
   static async getPresetById(id: string): Promise<PresetConfig | null> {
-    // Check built-in presets first
+    // Check custom presets first (allow override) then built-in
+    const customPresets = await StorageManager.getCustomPresets();
+    const custom = customPresets.find(preset => preset.id === id);
+    if (custom) return custom;
+
     if (BUILT_IN_PRESETS[id]) {
       return BUILT_IN_PRESETS[id];
     }
 
-    // Check custom presets
-    const customPresets = await StorageManager.getCustomPresets();
-    return customPresets.find(preset => preset.id === id) || null;
+    return null;
   }
 
   static async saveCustomPreset(preset: Omit<PresetConfig, 'isBuiltIn'>): Promise<void> {
@@ -145,5 +152,45 @@ export class PresetManager {
 
   static validatePrompt(prompt: string) {
     return validatePrompt(prompt);
+  }
+
+  // Render a preset's systemPrompt replacing placeholders of the form:
+  // {{key}} or {{key|default}} using provided inputs map.
+  static renderPreset(preset: PresetConfig, inputs?: Record<string, string | number | boolean>): string {
+    const template = preset.systemPrompt || '';
+
+    const rendered = template.replace(/\{\{\s*([^}|]+)(?:\|([^}]+))?\s*\}\}/g, (_, key, def) => {
+      const k = key.trim();
+      const val = inputs && Object.prototype.hasOwnProperty.call(inputs, k) ? inputs[k] : undefined;
+      if (val !== undefined && val !== null) return String(val);
+      if (def !== undefined) return def;
+      return '';
+    });
+
+    // Fallback: if no {{input}} placeholder was found and we have input, append it
+    if (inputs?.input && !template.includes('{{input}}')) {
+      return rendered + '\n\nUser input: ' + inputs.input;
+    }
+
+    return rendered;
+  }
+
+  // Minimal preset validation: checks required fields exist
+  static validatePreset(preset: Partial<PresetConfig>): { valid: boolean; errors: string[] } {
+    const errors: string[] = [];
+    if (!preset) {
+      errors.push('preset is null or undefined');
+      return { valid: false, errors };
+    }
+
+    if (!preset.name || String(preset.name).trim().length === 0) errors.push('name is required');
+    if (!preset.systemPrompt || String(preset.systemPrompt).trim().length === 0) errors.push('systemPrompt is required');
+    
+    // Validate that {{input}} placeholder exists
+    if (preset.systemPrompt && !preset.systemPrompt.includes('{{input}}')) {
+      errors.push('systemPrompt must contain {{input}} placeholder to receive user input');
+    }
+
+    return { valid: errors.length === 0, errors };
   }
 }

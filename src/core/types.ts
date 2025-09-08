@@ -7,6 +7,8 @@ export interface PresetConfig {
   systemPrompt: string;
   tags: string[];
   isBuiltIn: boolean;
+  createdAt?: number;
+  updatedAt?: number;
   examples?: PresetExample[];
 }
 
@@ -46,6 +48,7 @@ export interface AppSettings {
     saveToHistory: boolean;
     maxHistoryItems: number;
   };
+  lastSelectedPresetId?: string;
 }
 
 // Re-export error types from utils
