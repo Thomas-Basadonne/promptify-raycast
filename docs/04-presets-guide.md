@@ -23,16 +23,38 @@ Promptify includes three carefully crafted presets, each optimized for specific 
 ### Output Structure
 ```markdown
 # 🎯 Objective
-[Clear, specific goal of what you want to achieve]
+- Clear statement of what the user wants to achieve
+- If vague: infer and propose a meaningful objective
 
-# 📋 Context  
-[Relevant background information, audience, tone]
+# 📋 Context
+- Relevant background or scenario inferred from input
+- Audience, tone, or environment (if implied or stated)
+
+# ⚖️ Constraints
+- Explicit or implicit limits (time, length, performance, format, style, etc.)
+- Safety, accessibility, or compliance hints (if mentioned)
+
+# 🛠️ Process / Steps (if relevant)
+- Logical outline of steps, phases, or workflow to follow
+- Conditionally included only when input implies a multi-step task
 
 # 🎨 Format & Style
-[Desired output format, length, style requirements]
+- Expected output format (essay, code, image, bullet list, etc.)
+- Style/tone/voice/medium as provided or inferred
 
 # ✅ Success Criteria
-[How to know if the response meets requirements]
+- Measurable signs of a good answer/output
+- Derived from user input or context
+
+# ➕ Enhancements
+- Smart additions: suggest improvements, clarifications, or refinements
+- Only if they add genuine value and don't distort intent
+
+# 🚫 Non-Goals
+- Things explicitly out of scope, or common misinterpretations to avoid
+
+# 🔍 Input Provided
+- Include user's raw input (verbatim, for traceability)
 ```
 
 ### Detailed Examples
@@ -43,26 +65,50 @@ Input: "Write about remote work"
 
 Enhanced Output:
 # 🎯 Objective
-Create an informative guide about effective remote work practices for new remote employees
+- Create an informative guide about effective remote work practices
+- Target professionals transitioning to remote work for the first time
 
 # 📋 Context
-Target audience: Professionals transitioning to remote work for the first time
-Tone: Helpful and encouraging, professional but approachable
-Focus: Practical advice and real-world solutions
+- Audience: Professionals new to remote work, feeling uncertain about best practices
+- Tone: Helpful and encouraging, professional but approachable
+- Current trend: Increased remote work adoption post-pandemic
+
+# ⚖️ Constraints
+- Length: 1200-1500 words for comprehensive coverage
+- Reading level: Professional but accessible, avoid jargon
+- Structure: Scannable with clear sections and takeaways
+
+# 🛠️ Process / Steps
+- Address common remote work challenges
+- Provide specific, actionable solutions
+- Include tools and resource recommendations
+- Build confidence for remote work transition
 
 # 🎨 Format & Style
-Blog post format, 1200-1500 words, structured with:
-- Engaging introduction with statistics
+- Blog post format with engaging introduction using statistics
 - 5-7 main sections with actionable tips
 - Bullet points for key takeaways
-- Conclusion with next steps
+- Conclusion with clear next steps
 
 # ✅ Success Criteria
-- Addresses common remote work challenges
-- Provides specific, actionable advice
-- Includes tools and resource recommendations
+- Addresses specific remote work pain points
+- Provides immediately actionable advice
+- Includes practical tools and resources
+- Reduces anxiety about remote work transition
 - Easy to scan and implement
-- Engaging tone that reduces anxiety about remote work transition
+
+# ➕ Enhancements
+- Include real-world success stories or case studies
+- Add downloadable checklist or template
+- Suggest follow-up topics for series
+
+# 🚫 Non-Goals
+- Avoid generic productivity advice not specific to remote work
+- Don't focus on company policy creation
+- Skip technical setup details for specific tools
+
+# 🔍 Input Provided
+- "Write about remote work"
 ```
 
 #### Email Campaign Enhancement
@@ -71,29 +117,55 @@ Input: "Newsletter about new features"
 
 Enhanced Output:
 # 🎯 Objective
-Create a compelling product update newsletter that showcases new features and drives user engagement
+- Create compelling product update newsletter showcasing new features
+- Drive user engagement and feature adoption
 
 # 📋 Context
-Product: SaaS productivity tool with 10k+ active users
-Audience: Existing subscribers who use the product regularly
-Timing: Monthly feature update newsletter
-Brand voice: Friendly, helpful, innovation-focused
+- Product: SaaS productivity tool with 10k+ active users
+- Audience: Existing subscribers who use the product regularly
+- Timing: Monthly feature update newsletter
+- Brand voice: Friendly, helpful, innovation-focused
+
+# ⚖️ Constraints
+- Email length: Scannable in under 2 minutes
+- Mobile-optimized design required
+- Compliance with email marketing regulations
+- Maintain consistent brand voice and visual identity
+
+# 🛠️ Process / Steps
+- Craft compelling subject line options
+- Structure content with clear hierarchy
+- Highlight benefits, not just features
+- Include clear calls-to-action
+- Add social proof or user testimonials
 
 # 🎨 Format & Style
-Email newsletter format with:
-- Compelling subject line suggestions
-- Personal greeting from founder/team
-- Feature highlights with benefits (not just features)
+- Email newsletter format with personal greeting from founder/team
+- Feature highlights with benefits-focused copy
 - Visual callouts for key improvements
 - Clear CTAs for feature exploration
-- User testimonial or success story
+- User testimonial or success story integration
 
 # ✅ Success Criteria
 - High open rate (>25% based on industry average)
 - Increased feature adoption within 7 days
-- Positive reply sentiment
+- Positive reply sentiment and engagement
 - Clear value communication for each feature
 - Drives traffic to specific product areas
+
+# ➕ Enhancements
+- A/B test subject line variations
+- Include usage tips for new features
+- Add personalization based on user segments
+- Create follow-up sequence for non-engagers
+
+# 🚫 Non-Goals
+- Avoid overwhelming with too many features
+- Don't focus on technical implementation details
+- Skip generic marketing language without substance
+
+# 🔍 Input Provided
+- "Newsletter about new features"
 ```
 
 ### Tips for Better General Enhancements
@@ -114,16 +186,49 @@ Email newsletter format with:
 
 ### Output Structure
 ```markdown
-**Subject:** [Main focus and content of the image]
-**Style:** [Art style, technique, or aesthetic approach]
-**Composition:** [Framing, perspective, and layout]
-**Lighting:** [Type, quality, and direction of lighting]
-**Color:** [Color palette, mood, and saturation]
-**Details:** [Specific elements, textures, and refinements]
-**Camera/Lens:** [Photography specifications if applicable]
-**Quality Tags:** [Technical quality and resolution descriptors]
+**Subject**
+- [main subject(s)]
+- [pose/action/expression]
+- [scale vs frame]
 
-**Negative Prompt:** [Elements to avoid in the generation]
+**Setting / Scene** (omit if not in input)
+- [environment, era/season, interior/exterior]
+- [background/foreground context]
+
+**Composition** (omit if not in input)
+- [framing & spacing]
+- [perspective/angle]
+- [depth cues / negative space]
+
+**Style & Medium** (omit if not in input)
+- [art medium / approach]
+- [aesthetic refs if provided]
+- [level of detail / texture]
+
+**Lighting** (omit if not in input)
+- [type & source]
+- [directionality / contrast]
+
+**Color & Materials** (omit if not in input)
+- [palette & mood]
+- [materials / textures]
+
+**Camera / Lens** (omit if not implied)
+- [focal length feel]
+- [depth of field / film vibe]
+
+**Details (Must-Have)** (omit if not in input)
+- [essential props, accessories, symbols]
+
+**Quality Tags**
+- [short list: clarity, edges, resolution, lighting]
+
+**Negative Prompt** (omit if user didn't specify)
+- [undesired artifacts/content]
+
+**Output Controls**
+- [aspect intent or orientation if given]
+- [framing tightness / variation policy]
 ```
 
 ### Detailed Examples
@@ -133,16 +238,58 @@ Email newsletter format with:
 Input: "Professional photo of smartphone"
 
 Enhanced Output:
-**Subject:** Latest flagship smartphone positioned at 45-degree angle on clean surface
-**Style:** Commercial product photography, minimalist aesthetic, Apple-style clean presentation
-**Composition:** Centered product with rule of thirds, shallow depth of field, clean negative space
-**Lighting:** Soft, diffused studio lighting with key light from upper left, subtle fill light from right, rim lighting to separate from background
-**Color:** Neutral color palette with deep blacks and clean whites, subtle color temperature warmth
-**Details:** Visible screen reflection, pristine surface without fingerprints, subtle shadow beneath device, premium material textures visible
-**Camera/Lens:** Macro lens perspective, 85mm equivalent, f/8 for optimal sharpness, studio setup
-**Quality Tags:** 8K resolution, commercial quality, pin-sharp focus, professional photography
+**Subject**
+- Latest flagship smartphone
+- Positioned at 45-degree angle
+- Clean surface placement
 
-**Negative Prompt:** cluttered background, harsh shadows, oversaturated colors, visible fingerprints, dusty surface, amateur lighting
+**Setting / Scene**
+- Minimalist studio environment
+- Clean, neutral background
+- Professional commercial setting
+
+**Composition**
+- Centered product with rule of thirds
+- Shallow depth of field
+- Clean negative space around subject
+
+**Style & Medium**
+- Commercial product photography
+- Apple-style clean presentation
+- Minimalist aesthetic approach
+
+**Lighting**
+- Soft, diffused studio lighting
+- Key light from upper left
+- Subtle fill light from right
+- Rim lighting for separation
+
+**Color & Materials**
+- Neutral color palette
+- Deep blacks and clean whites
+- Subtle warm color temperature
+- Premium material textures visible
+
+**Camera / Lens**
+- Macro lens perspective
+- 85mm equivalent focal length
+- f/8 for optimal sharpness
+
+**Details (Must-Have)**
+- Visible screen reflection
+- Pristine surface without fingerprints
+- Subtle shadow beneath device
+
+**Quality Tags**
+- 8K resolution
+- Commercial quality
+- Pin-sharp focus
+- Professional photography
+
+**Negative Prompt**
+- cluttered background, harsh shadows
+- oversaturated colors, visible fingerprints
+- dusty surface, amateur lighting
 ```
 
 #### Artistic Illustration Enhancement
@@ -150,16 +297,58 @@ Enhanced Output:
 Input: "Fantasy forest scene"
 
 Enhanced Output:
-**Subject:** Mystical ancient forest with towering trees and ethereal light filtering through canopy
-**Style:** Digital fantasy art, painterly technique inspired by Studio Ghibli and Hayao Miyazaki
-**Composition:** Vertical orientation emphasizing tree height, winding path leading into distance, multiple depth layers
-**Lighting:** Magical golden hour light streaming through leaves, volumetric light rays, bioluminescent elements glowing softly
-**Color:** Rich emerald greens with warm golden accents, cool blue shadows, touches of magical purple and teal
-**Details:** Ancient moss-covered bark texture, floating magical particles, delicate ferns and undergrowth, hidden fairy lights
-**Camera/Lens:** Wide-angle perspective to capture scale, cinematic aspect ratio, slight upward angle
-**Quality Tags:** Concept art quality, highly detailed, painterly textures, fantasy illustration
+**Subject**
+- Mystical ancient forest
+- Towering trees reaching skyward
+- Ethereal atmosphere throughout
 
-**Negative Prompt:** realistic photography, modern elements, harsh lighting, desaturated colors, simple trees, empty forest
+**Setting / Scene**
+- Ancient woodland environment
+- Multiple depth layers visible
+- Magical, otherworldly atmosphere
+
+**Composition**
+- Vertical orientation emphasizing tree height
+- Winding path leading into distance
+- Multiple depth layers for scale
+
+**Style & Medium**
+- Digital fantasy art
+- Painterly technique
+- Studio Ghibli and Hayao Miyazaki inspired
+
+**Lighting**
+- Magical golden hour light
+- Volumetric light rays streaming through leaves
+- Bioluminescent elements glowing softly
+
+**Color & Materials**
+- Rich emerald greens with warm golden accents
+- Cool blue shadows
+- Touches of magical purple and teal
+- Ancient moss-covered bark texture
+
+**Camera / Lens**
+- Wide-angle perspective to capture scale
+- Cinematic aspect ratio
+- Slight upward angle
+
+**Details (Must-Have)**
+- Floating magical particles
+- Delicate ferns and undergrowth
+- Hidden fairy lights
+- Ancient moss textures
+
+**Quality Tags**
+- Concept art quality
+- Highly detailed
+- Painterly textures
+- Fantasy illustration
+
+**Negative Prompt**
+- realistic photography, modern elements
+- harsh lighting, desaturated colors
+- simple trees, empty forest
 ```
 
 ### Advanced Image Techniques
@@ -191,13 +380,35 @@ Enhanced Output:
 
 ### Output Structure
 ```markdown
-# 💻 Technical Objective
-[Specific programming goal or problem to solve]
+**Improved Prompt:**
 
-# 🛠️ Technology Stack
-[Languages, frameworks, tools, versions, dependencies]
+# 💻 Objective
+[What to build/fix - specific programming goal]
 
-# 📝 Requirements
+# 📋 Context
+[What matters to understand scope - background information]
+
+# ⚖️ Constraints
+[Performance, security, accessibility, style hints, boundaries]
+
+# � Files/Areas to Touch
+[Neutral names unless user provided specific filenames/paths]
+
+# ✅ Acceptance Criteria
+[Testable requirements and success metrics]
+
+# 🔄 I/O
+[Inputs/outputs, interfaces, contracts]
+
+# 🚫 Non-Goals
+[What to avoid - scope limitations]
+
+**Critical Questions:** (max 3, only if truly blocking)
+[Questions that would significantly impact the solution]
+
+**Risks & Assumptions:** (max 2 bullets)
+[Key assumptions and potential risks]
+```
 [Functional requirements, technical constraints, specifications]
 
 # 🎯 Expected Output
@@ -217,48 +428,59 @@ Enhanced Output:
 Input: "User profile component"
 
 Enhanced Output:
-# 💻 Technical Objective
-Create a reusable UserProfile component with edit functionality and real-time updates
+**Improved Prompt:**
 
-# 🛠️ Technology Stack
-- React 18+ with TypeScript 4.9+
-- React Hook Form for form management
-- React Query for data fetching and caching
-- Styled Components or CSS Modules for styling
-- Zod for runtime validation
-- React Testing Library and Jest for testing
+# 💻 Objective
+Create a reusable user profile component with edit functionality and real-time updates
 
-# 📝 Requirements
+# � Context
+- Authentication component for displaying and editing user information
+- Part of larger dashboard application with consistent design system
+- Needs to integrate with existing user management REST API
+- Should work with existing authentication middleware
+
+# ⚖️ Constraints
+- Maximum 120 lines of code
+- Single file implementation preferred
+- Accessible form controls (ARIA labels, keyboard navigation)
+- Responsive design for mobile and desktop
+- Performance: optimize re-renders with React.memo
+- Security: sanitize inputs, validate file uploads
+
+# 📁 Files/Areas to Touch
+- Main user profile component file
+- Supporting validation utilities if needed
+- Type definitions for user data structure
+
+# ✅ Acceptance Criteria
 - Display user information (name, email, avatar, bio)
-- Toggle between view and edit modes
+- Toggle between view and edit modes seamlessly
 - Real-time validation for form fields
 - Image upload functionality for avatar
+- Loading states and comprehensive error handling
 - Optimistic updates with rollback on error
-- Loading states and error handling
-- Responsive design for mobile and desktop
-- Accessibility compliance (WCAG 2.1 AA)
+- WCAG 2.1 AA compliance
 
-# 🎯 Expected Output
-- Complete TypeScript React component
-- Type definitions and interfaces
-- Custom hooks for form logic and API calls
-- Styled components with responsive design
-- Unit tests with >90% coverage
-- Storybook stories for documentation
-- Usage examples and integration guide
+# 🔄 I/O
+- Input: User object with profile data
+- Output: Updated user data on successful edit
+- Interface: onUpdate callback with validated form data
+- Error handling: onError callback for failed operations
 
-# 🔍 Constraints & Considerations
-- Performance: Optimize re-renders with React.memo and useMemo
-- Security: Sanitize inputs, validate file uploads, handle sensitive data
-- UX: Smooth transitions, clear feedback, prevent data loss
-- Scalability: Extensible for additional profile fields
-- Error handling: Network failures, validation errors, upload failures
-- Browser compatibility: Modern browsers (last 2 versions)
+# � Non-Goals
+- Backend user management logic
+- Complex image editing features
+- Social media integration
+- Admin-level user management
 
-# 📚 Context
-Integrates with existing user management system using REST API
-Part of larger dashboard application with consistent design system
-Needs to work with existing authentication and authorization middleware
+**Critical Questions:**
+1. Should this include TypeScript types or plain JavaScript?
+2. What specific validation rules are required for user fields?
+3. Are there existing design system components to use?
+
+**Risks & Assumptions:**
+- Assumes standard REST API for user updates
+- Component may need customization for different user roles
 ```
 
 #### API Design Enhancement
@@ -266,57 +488,63 @@ Needs to work with existing authentication and authorization middleware
 Input: "REST API for task management"
 
 Enhanced Output:
-# 💻 Technical Objective
+**Improved Prompt:**
+
+# 💻 Objective
 Design and implement a RESTful API for task management with real-time updates and team collaboration
 
-# 🛠️ Technology Stack
-- Node.js 18+ with Express.js 4.18+
-- PostgreSQL 14+ with Prisma ORM
-- TypeScript for type safety
-- Socket.io for real-time features
-- Redis for caching and session storage
-- JWT for authentication
-- Zod for request validation
-- Jest and Supertest for testing
-- Docker for containerization
+# � Context
+- Replacing legacy PHP application with modern architecture
+- Needs integration with existing LDAP authentication system
+- Will serve both web frontend and mobile applications
+- Requires data migration from existing MySQL database
+- Must maintain backwards compatibility during transition
 
-# 📝 Requirements
+# ⚖️ Constraints
+- Maximum 120 lines of code per endpoint
+- Handle 1000+ concurrent users
+- OWASP Top 10 compliance required
+- Stateless design for horizontal scaling
+- API versioning support needed
+- Comprehensive error handling
+
+# 📁 Files/Areas to Touch
+- Main API router and endpoint definitions
+- Database schema and migration files
+- Authentication and authorization middleware
+- Real-time WebSocket integration
+- Input validation schemas
+
+# ✅ Acceptance Criteria
 - CRUD operations for tasks, projects, and teams
 - User authentication and authorization (RBAC)
 - Real-time task updates and notifications
-- File attachments for tasks
-- Task filtering, sorting, and search
+- Task filtering, sorting, and search capabilities
 - Activity logging and audit trails
 - Rate limiting and request throttling
-- API versioning support
-- Comprehensive error handling
+- Complete OpenAPI/Swagger documentation
+- Unit and integration test coverage >90%
 
-# 🎯 Expected Output
-- Complete REST API with OpenAPI/Swagger documentation
-- Database schema with migrations and seeders
-- Authentication and authorization middleware
-- Real-time WebSocket integration
-- Input validation and sanitization
-- Comprehensive error responses
-- Unit and integration tests
-- Docker configuration
-- Deployment guide and environment setup
+# 🔄 I/O
+- Input: HTTP requests with JSON payloads
+- Output: JSON responses with consistent error formats
+- Interface: RESTful endpoints with proper HTTP status codes
+- WebSocket events for real-time features
 
-# 🔍 Constraints & Considerations
-- Performance: Handle 1000+ concurrent users, optimize database queries
-- Security: OWASP Top 10 compliance, input validation, SQL injection prevention
-- Scalability: Stateless design, horizontal scaling capability
-- Reliability: Error recovery, circuit breakers, health checks
-- Monitoring: Logging, metrics, alerting integration
-- Data consistency: Transaction handling, optimistic locking
-- API design: RESTful principles, consistent naming, proper HTTP codes
+# 🚫 Non-Goals
+- Frontend application development
+- Complex reporting and analytics features
+- Third-party service integrations beyond authentication
+- Advanced workflow automation
 
-# 📚 Context
-Replaces legacy PHP application with modern architecture
-Needs to integrate with existing LDAP authentication system
-Will serve both web frontend and mobile applications
-Requires data migration from existing MySQL database
-Must maintain backwards compatibility during transition period
+**Critical Questions:**
+1. What specific authentication roles and permissions are required?
+2. Are there existing API standards or conventions to follow?
+3. What are the specific performance benchmarks for response times?
+
+**Risks & Assumptions:**
+- Assumes LDAP integration can be maintained during migration
+- Database migration complexity may require phased rollout approach
 ```
 
 ### Code-Specific Tips

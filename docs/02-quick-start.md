@@ -30,21 +30,34 @@ Write about sustainable energy
 **Enhanced:**
 ```
 # 🎯 Objective
-Create a comprehensive article about sustainable energy sources and their impact on the environment
+- Create a comprehensive article about sustainable energy sources
+- Focus on environmental impact and practical applications
 
 # 📋 Context
-Target audience: General readers interested in environmental topics
-Tone: Informative and engaging
-Focus: Current technologies and future outlook
+- Audience: General readers interested in environmental topics
+- Tone: Informative, engaging, and accessible
+- Current context: Growing interest in climate solutions
+
+# ⚖️ Constraints
+- Length: 1000-1500 words for comprehensive coverage
+- Reading level: General audience, avoid technical jargon
+- Include current data and statistics
 
 # 🎨 Format & Style
-Article format, 1000-1500 words, with clear headings and practical examples
+- Article format with clear headings and subheadings
+- Use practical examples and case studies
+- Include bullet points for key information
+- Engaging, optimistic tone
 
 # ✅ Success Criteria
 - Covers major sustainable energy types (solar, wind, hydro, etc.)
-- Explains benefits and challenges
+- Explains benefits and challenges clearly
 - Includes current statistics and trends
 - Provides actionable insights for readers
+- Easy to understand for non-technical audience
+
+# 🔍 Input Provided
+- "Write about sustainable energy"
 ```
 
 ### Step 5: Use Your Enhanced Prompt
@@ -70,16 +83,50 @@ Promptify has three specialized presets. Let's try them all:
 
 **Expected output**:
 ```
-**Subject:** Warm, inviting coffee shop interior
-**Style:** Photorealistic, cozy atmosphere
-**Composition:** Interior shot, inviting perspective
-**Lighting:** Soft warm lighting, golden hour window light
-**Color:** Warm browns, creams, soft yellows
-**Details:** Exposed brick walls, vintage furniture, steaming coffee cups
-**Camera/Lens:** Wide-angle interior photography
-**Quality Tags:** High resolution, professional photography
+**Subject**
+- Warm, inviting coffee shop interior
+- Customers enjoying coffee and conversation
+- Cozy seating arrangements
 
-**Negative Prompt:** crowded, cold, sterile, harsh lighting
+**Setting / Scene**
+- Interior coffee shop environment
+- Afternoon atmosphere with natural light
+- Urban or neighborhood setting
+
+**Composition**
+- Interior shot with inviting perspective
+- Multiple seating areas visible
+- Depth showing different spaces
+
+**Style & Medium**
+- Photorealistic rendering
+- Cozy, welcoming atmosphere
+- Contemporary coffee shop aesthetic
+
+**Lighting**
+- Soft warm lighting throughout
+- Golden hour window light streaming in
+- Ambient interior lighting
+
+**Color & Materials**
+- Warm browns and rich wood tones
+- Cream and soft yellow accents
+- Natural materials and textures
+
+**Details (Must-Have)**
+- Exposed brick walls or warm textures
+- Vintage or modern furniture
+- Steaming coffee cups and pastries
+- Books or magazines on tables
+
+**Quality Tags**
+- High resolution, professional photography
+- Warm, inviting atmosphere
+- Commercial photography quality
+
+**Negative Prompt**
+- crowded, cold, sterile environment
+- harsh lighting, empty spaces
 ```
 
 ### Code & Technical
@@ -90,27 +137,56 @@ Promptify has three specialized presets. Let's try them all:
 
 **Expected output**:
 ```
-# 💻 Technical Objective
-Create a secure and accessible login form component
+**Improved Prompt:**
 
-# 🛠️ Technology Stack
-- HTML5, CSS3, JavaScript (ES6+)
-- Framework: React/Vue/vanilla JS
-- Styling: CSS Grid/Flexbox
-- Validation: Client-side and server-side
+# 💻 Objective
+Create a secure and accessible user authentication form with proper validation
 
-# 📝 Requirements
-- Email/username and password fields
-- Form validation with error messages
-- Accessibility compliance (WCAG 2.1)
-- Responsive design for mobile/desktop
-- Password visibility toggle
-- Remember me functionality
+# � Context
+- Authentication component for user login
+- Should handle form validation and submission
+- Include error handling for failed attempts
+- Part of larger web application
 
-# 🎯 Expected Output
-- Complete component code
-- CSS styling
-- JavaScript validation logic
+# ⚖️ Constraints
+- Maximum 120 lines of code
+- Single file implementation preferred
+- Accessible form controls (ARIA labels, keyboard navigation)
+- Form validation before submission
+- Secure handling of credentials
+
+# 📁 Files/Areas to Touch
+- Main form component file
+- Supporting validation utilities if needed
+- CSS styling for form layout
+
+# ✅ Acceptance Criteria
+- Email/username and password input fields
+- Client-side validation with clear error messages
+- Submit button with loading state
+- Proper form accessibility compliance
+- Responsive design for mobile and desktop
+- Password visibility toggle functionality
+
+# 🔄 I/O
+- Input: User credentials (email/username, password)
+- Output: Validated form data for authentication
+- Interface: onSubmit callback with form data
+
+# 🚫 Non-Goals
+- Backend authentication logic
+- Password strength meter
+- Social login integration
+- User registration functionality
+
+**Critical Questions:**
+1. Should this use any specific styling framework?
+2. What should happen after successful form submission?
+
+**Risks & Assumptions:**
+- Assumes standard email/password authentication flow
+- Form validation rules may need customization based on requirements
+```
 - Accessibility features implementation
 - Usage examples and documentation
 ```

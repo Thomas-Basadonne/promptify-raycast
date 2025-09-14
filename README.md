@@ -44,6 +44,39 @@ Input: "Write about dogs"
 
 Output:
 # 🎯 Objective
+- Create an informative article about dogs covering characteristics, breeds, and care
+- Target pet owners and dog enthusiasts
+
+# 📋 Context
+- Audience: Pet owners and dog enthusiasts seeking reliable information
+- Format: Educational article for general readership
+- Tone: Friendly, accessible, and informative
+
+# ⚖️ Constraints
+- Length: 800-1000 words
+- Reading level: General audience, no technical jargon
+- Include practical, actionable advice
+
+# 🎨 Format & Style
+- Article format with clear headings and subheadings
+- Use bullet points for key information
+- Include relevant examples and anecdotes
+- Friendly, conversational tone
+
+# ✅ Success Criteria
+- Covers major dog breeds with key characteristics
+- Includes practical care tips (feeding, exercise, health)
+- Easy to read and engaging for pet owners
+- Provides actionable advice readers can implement
+
+# 🔍 Input Provided
+- "Write about dogs"
+```
+```
+Input: "Write about dogs"
+
+Output:
+# 🎯 Objective
 Create an informative article about dogs covering characteristics, breeds, and care
 
 # 📋 Context  
@@ -67,16 +100,52 @@ Optimized for Midjourney, DALL-E, Stable Diffusion, and all image generation mod
 Input: "A beautiful sunset"
 
 Output:
-**Subject:** Dramatic sunset landscape with silhouetted mountains
-**Style:** Photorealistic, cinematic
-**Composition:** Wide landscape shot, rule of thirds
-**Lighting:** Golden hour, warm backlighting, dramatic sky
-**Color:** Vibrant oranges, deep purples, golden yellows
-**Details:** Layered mountain silhouettes, scattered clouds
-**Camera/Lens:** Wide-angle landscape photography
-**Quality Tags:** High resolution, professional photography
+**Subject**
+- Dramatic sunset landscape
+- Silhouetted mountain range
+- Wide natural vista
 
-**Negative Prompt:** blurry, low quality, oversaturated
+**Setting / Scene**
+- Mountain landscape at golden hour
+- Clear evening sky with layered clouds
+- Natural outdoor environment
+
+**Composition**
+- Wide landscape orientation
+- Rule of thirds with horizon placement
+- Layered depth from foreground to background
+
+**Style & Medium**
+- Photorealistic rendering
+- Cinematic landscape photography style
+- High detail and clarity
+
+**Lighting**
+- Golden hour backlighting
+- Warm directional light from setting sun
+- Dramatic contrast between sky and silhouettes
+
+**Color & Materials**
+- Vibrant oranges and warm yellows in sky
+- Deep purples and magentas in clouds
+- Dark silhouetted mountains
+- Atmospheric haze and gradient transitions
+
+**Camera / Lens**
+- Wide-angle landscape perspective
+- Sharp focus throughout
+- Professional photography depth
+
+**Quality Tags**
+- High resolution, sharp details
+- Professional photography quality
+- Award-winning composition
+- Cinematic lighting
+
+**Negative Prompt**
+- blurry, low quality, oversaturated
+- artificial colors, unrealistic lighting
+- poor composition, tilted horizon
 ```
 
 ### 💻 Code Enhancement
@@ -84,25 +153,56 @@ Technical prompts for programming, APIs, architecture, and development tasks.
 
 **[See code examples →](docs/04-presets-guide.md#code-enhancement-preset)**
 ```
-Input: "Help me with React"
+Input: "Create a login form"
 
 Output:
-# 💻 Technical Objective
-Create a reusable React component with proper TypeScript types
+**Improved Prompt:**
 
-# 🛠️ Technology Stack  
-- React 18+, TypeScript 4.9+, Modern functional components
+# 💻 Objective
+Create a user authentication form with email/password inputs and proper validation
 
-# 📝 Requirements
-- Properly typed component with prop validation
-- Loading and error state handling
-- React best practices
+# 📋 Context
+- Authentication component for user login
+- Should handle form validation and submission
+- Include error handling for failed attempts
 
-# 🎯 Expected Output
-- Complete component code
-- TypeScript interfaces
-- Usage example
-- Unit test structure
+# ⚖️ Constraints
+- Maximum 120 lines of code
+- Single file implementation
+- Accessible form controls (ARIA labels, keyboard navigation)
+- Form validation before submission
+- Secure handling of credentials
+
+# � Files/Areas to Touch
+- Main component file (login-form.tsx/js)
+- Supporting validation utilities if needed
+
+# ✅ Acceptance Criteria
+- Email and password input fields
+- Client-side validation (email format, password requirements)
+- Submit button with loading state
+- Error message display
+- Proper form accessibility
+- Clear visual feedback for validation states
+
+# 🔄 I/O
+- Input: User email and password
+- Output: Validated form data or error states
+- Interface: onSubmit callback with form data
+
+# 🚫 Non-Goals
+- Backend authentication logic
+- Password strength meter
+- Social login integration
+- Remember me functionality
+
+**Critical Questions:**
+1. Should this include any specific styling approach?
+2. What should happen after successful form validation?
+
+**Risks & Assumptions:**
+- Assumes standard email/password authentication flow
+- Form validation rules may need customization
 ```
 
 ## ⚙️ Configuration

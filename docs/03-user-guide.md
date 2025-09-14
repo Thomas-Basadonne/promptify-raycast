@@ -46,16 +46,38 @@ Promptify follows a proven framework:
 #### Structure
 ```markdown
 # 🎯 Objective
-[Clear, specific goal]
+- Clear statement of what the user wants to achieve
+- If vague: infer and propose a meaningful objective
 
-# 📋 Context  
-[Background information, audience, tone]
+# 📋 Context
+- Relevant background or scenario inferred from input
+- Audience, tone, or environment (if implied or stated)
+
+# ⚖️ Constraints
+- Explicit or implicit limits (time, length, performance, format, style, etc.)
+- Safety, accessibility, or compliance hints (if mentioned)
+
+# 🛠️ Process / Steps (if relevant)
+- Logical outline of steps, phases, or workflow to follow
+- Conditionally included only when input implies a multi-step task
 
 # 🎨 Format & Style
-[Output format, length, style requirements]
+- Expected output format (essay, code, image, bullet list, etc.)
+- Style/tone/voice/medium as provided or inferred
 
 # ✅ Success Criteria
-[Measurable success indicators]
+- Measurable signs of a good answer/output
+- Derived from user input or context
+
+# ➕ Enhancements
+- Smart additions: suggest improvements, clarifications, or refinements
+- Only if they add genuine value and don't distort intent
+
+# 🚫 Non-Goals
+- Things explicitly out of scope, or common misinterpretations to avoid
+
+# 🔍 Input Provided
+- Include user's raw input (verbatim, for traceability)
 ```
 
 #### Real Examples
@@ -66,25 +88,51 @@ Input: "Write about productivity apps"
 
 Enhanced:
 # 🎯 Objective
-Create a comprehensive review of the top 5 productivity apps for remote workers
+- Create a comprehensive review of the top 5 productivity apps
+- Target remote workers and freelancers seeking better tools
 
 # 📋 Context
-Target audience: Remote professionals and freelancers
-Tone: Professional but approachable
-Focus: Apps released or updated in 2024
+- Audience: Remote professionals and freelancers
+- Tone: Professional but approachable and practical
+- Current focus: Apps released or updated in 2024
+- Market context: Increased demand for remote work tools
+
+# ⚖️ Constraints
+- Length: 1200-1500 words for comprehensive coverage
+- Include pricing and platform information
+- Focus on apps actually tested by author
+- Must be actionable and practical
+
+# 🛠️ Process / Steps
+- Research and test each app personally
+- Create comparison framework
+- Structure individual reviews consistently
+- Develop clear recommendations based on use cases
 
 # 🎨 Format & Style
-Blog post format, 1200-1500 words, with:
-- Introduction hook
-- Individual app reviews with pros/cons
-- Comparison table
-- Clear recommendations
+- Blog post format with engaging introduction hook
+- Individual app reviews with pros/cons sections
+- Comparison table for easy scanning
+- Clear recommendations for different user types
 
 # ✅ Success Criteria
-- Covers 5 distinct app categories
-- Includes pricing and platform information
-- Provides actionable recommendations
-- Engaging and easy to scan
+- Covers 5 distinct productivity app categories
+- Includes pricing and platform compatibility
+- Provides actionable recommendations for different user types
+- Engaging and easy to scan with clear takeaways
+
+# ➕ Enhancements
+- Include personal testing experience and screenshots
+- Add user testimonials or case studies
+- Suggest app combinations that work well together
+
+# 🚫 Non-Goals
+- Avoid generic app descriptions without personal testing
+- Don't include outdated or discontinued apps
+- Skip technical setup details
+
+# 🔍 Input Provided
+- "Write about productivity apps"
 ```
 
 **Example 2: Email Campaign**
@@ -122,16 +170,49 @@ Email format with:
 
 #### Structure
 ```markdown
-**Subject:** [Main focus of the image]
-**Style:** [Art style, technique, aesthetic]
-**Composition:** [Framing, perspective, layout]
-**Lighting:** [Type and quality of lighting]
-**Color:** [Color palette and mood]
-**Details:** [Specific elements, textures]
-**Camera/Lens:** [If photographic style]
-**Quality Tags:** [Technical specifications]
+**Subject**
+- [main subject(s)]
+- [pose/action/expression]
+- [scale vs frame]
 
-**Negative Prompt:** [What to avoid]
+**Setting / Scene** (omit if not in input)
+- [environment, era/season, interior/exterior]
+- [background/foreground context]
+
+**Composition** (omit if not in input)
+- [framing & spacing]
+- [perspective/angle]
+- [depth cues / negative space]
+
+**Style & Medium** (omit if not in input)
+- [art medium / approach]
+- [aesthetic refs if provided]
+- [level of detail / texture]
+
+**Lighting** (omit if not in input)
+- [type & source]
+- [directionality / contrast]
+
+**Color & Materials** (omit if not in input)
+- [palette & mood]
+- [materials / textures]
+
+**Camera / Lens** (omit if not implied)
+- [focal length feel]
+- [depth of field / film vibe]
+
+**Details (Must-Have)** (omit if not in input)
+- [essential props, accessories, symbols]
+
+**Quality Tags**
+- [short list: clarity, edges, resolution, lighting]
+
+**Negative Prompt** (omit if user didn't specify)
+- [undesired artifacts/content]
+
+**Output Controls**
+- [aspect intent or orientation if given]
+- [framing tightness / variation policy]
 ```
 
 #### Real Examples
