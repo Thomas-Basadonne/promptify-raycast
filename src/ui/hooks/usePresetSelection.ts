@@ -53,7 +53,7 @@ export function usePresetSelection(defaultPresetId?: string): UsePresetSelection
       if (fallbackPreset) {
         setSelectedPreset(fallbackPreset);
       }
-    } catch (error) {
+    } catch {
       // If settings fail, just use the defaultPresetId or first preset
       const fallbackPreset = allPresets.find((p) => p.id === defaultPresetId) || allPresets[0];
       if (fallbackPreset) {

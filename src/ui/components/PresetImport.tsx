@@ -1,5 +1,5 @@
 import { Form, ActionPanel, Action, showToast, Toast, useNavigation } from "@raycast/api";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { PresetConfig } from "../../core/types";
 import { StorageManager } from "../../core/storage";
 import { PresetManager } from "../../core/presets";
@@ -120,7 +120,7 @@ export function PresetImport({ onImport }: PresetImportProps) {
     if (newJsonInput.trim()) {
       try {
         await validateAndParseJSON(newJsonInput);
-      } catch (error) {
+      } catch {
         setParsedPreset(null);
         setConflictDetected(false);
         setExistingPreset(null);

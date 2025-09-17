@@ -205,7 +205,7 @@ function extractPlaceholders(template: string): string[] {
 
 // Quick preset creation form for common use cases
 export function QuickPresetCreator({ onSave }: { onSave?: (preset: PresetConfig) => void }) {
-  const [template, setTemplate] = useState<"general" | "coding" | "creative" | "custom">("general");
+  const [template] = useState<"general" | "coding" | "creative" | "custom">("general");
 
   const templates = {
     general: {

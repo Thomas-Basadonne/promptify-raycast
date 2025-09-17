@@ -2,7 +2,7 @@ import { showToast, Toast, useNavigation } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { useClipboard, useProvider, useHistory, usePreferences, PromptPreview, PromptActions } from "../ui";
 import { PresetManager, BUILT_IN_PRESETS } from "../core/presets";
-import { ClipboardError, ProviderError, NetworkError, PresetConfig } from "../core/types";
+import { ClipboardError, ProviderError, NetworkError } from "../core/types";
 import { usePresetSelection } from "../ui/hooks/usePresetSelection";
 import { PresetSelector } from "../ui/components/PresetSelector";
 

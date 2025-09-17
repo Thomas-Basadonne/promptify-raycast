@@ -45,7 +45,7 @@ export function validateModelName(modelName: string): ValidationResult {
   }
 
   // Basic model name validation (alphanumeric, dots, colons, hyphens)
-  const modelNameRegex = /^[a-zA-Z0-9\.\:\-_]+$/;
+  const modelNameRegex = /^[a-zA-Z0-9.:_-]+$/;
   if (!modelNameRegex.test(modelName)) {
     return {
       isValid: false,

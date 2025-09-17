@@ -12,7 +12,7 @@ export function formatPromptForPreview(prompt: string, maxLength = 500): string 
   return escapeMarkdown(formatted);
 }
 
-export function formatJsonExport(data: any): string {
+export function formatJsonExport(data: unknown): string {
   return JSON.stringify(data, null, 2);
 }
 

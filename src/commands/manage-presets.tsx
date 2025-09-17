@@ -26,7 +26,7 @@ export default function ManagePresets() {
       setLoading(true);
       const allPresets = await PresetManager.getAllPresets();
       setPresets(allPresets);
-    } catch (error) {
+    } catch {
       showToast(Toast.Style.Failure, ERROR_MESSAGES.STORAGE_ERROR);
     } finally {
       setLoading(false);
