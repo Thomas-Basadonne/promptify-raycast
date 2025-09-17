@@ -1,7 +1,10 @@
 // Error handling utilities and custom error types
 
 export class AppError extends Error {
-  constructor(message: string, public code?: string) {
+  constructor(
+    message: string,
+    public code?: string,
+  ) {
     super(message);
     this.name = this.constructor.name;
   }
@@ -9,31 +12,40 @@ export class AppError extends Error {
 
 export class ClipboardError extends AppError {
   constructor(message: string) {
-    super(message, 'CLIPBOARD_ERROR');
+    super(message, "CLIPBOARD_ERROR");
   }
 }
 
 export class ProviderError extends AppError {
-  constructor(message: string, public provider?: string) {
-    super(message, 'PROVIDER_ERROR');
+  constructor(
+    message: string,
+    public provider?: string,
+  ) {
+    super(message, "PROVIDER_ERROR");
   }
 }
 
 export class NetworkError extends AppError {
-  constructor(message: string, public statusCode?: number) {
-    super(message, 'NETWORK_ERROR');
+  constructor(
+    message: string,
+    public statusCode?: number,
+  ) {
+    super(message, "NETWORK_ERROR");
   }
 }
 
 export class ValidationError extends AppError {
-  constructor(message: string, public field?: string) {
-    super(message, 'VALIDATION_ERROR');
+  constructor(
+    message: string,
+    public field?: string,
+  ) {
+    super(message, "VALIDATION_ERROR");
   }
 }
 
 export class StorageError extends AppError {
   constructor(message: string) {
-    super(message, 'STORAGE_ERROR');
+    super(message, "STORAGE_ERROR");
   }
 }
 

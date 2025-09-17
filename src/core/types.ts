@@ -32,7 +32,7 @@ export interface HistoryItem {
 }
 
 export interface AppSettings {
-  provider: 'ollama' | 'openai';
+  provider: "ollama" | "openai";
   ollama: {
     url: string;
     model: string;
@@ -52,14 +52,7 @@ export interface AppSettings {
 }
 
 // Re-export error types from utils
-export {
-  AppError,
-  ClipboardError,
-  ProviderError,
-  NetworkError,
-  ValidationError,
-  StorageError,
-} from '../utils/errors';
+export { AppError, ClipboardError, ProviderError, NetworkError, ValidationError, StorageError } from "../utils/errors";
 
 export interface AIProvider {
   name: string;

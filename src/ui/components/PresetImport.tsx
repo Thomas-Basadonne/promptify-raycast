@@ -1,9 +1,9 @@
-import { Form, ActionPanel, Action, showToast, Toast, useNavigation } from '@raycast/api';
-import { useState, useEffect } from 'react';
-import { PresetConfig } from '../../core/types';
-import { StorageManager } from '../../core/storage';
-import { PresetManager } from '../../core/presets';
-import { validatePresetConfig } from '../utils/validation';
+import { Form, ActionPanel, Action, showToast, Toast, useNavigation } from "@raycast/api";
+import { useState, useEffect } from "react";
+import { PresetConfig } from "../../core/types";
+import { StorageManager } from "../../core/storage";
+import { PresetManager } from "../../core/presets";
+import { validatePresetConfig } from "../utils/validation";
 
 interface PresetImportProps {
   onImport?: () => void;
@@ -11,12 +11,12 @@ interface PresetImportProps {
 
 interface ImportFormValues {
   jsonInput: string;
-  handleConflicts: 'overwrite' | 'rename';
+  handleConflicts: "overwrite" | "rename";
 }
 
 export function PresetImport({ onImport }: PresetImportProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [jsonInput, setJsonInput] = useState('');
+  const [jsonInput, setJsonInput] = useState("");
   const [parsedPreset, setParsedPreset] = useState<PresetConfig | null>(null);
   const [conflictDetected, setConflictDetected] = useState(false);
   const [existingPreset, setExistingPreset] = useState<PresetConfig | null>(null);
@@ -25,15 +25,15 @@ export function PresetImport({ onImport }: PresetImportProps) {
   const validateAndParseJSON = async (jsonInput: string) => {
     try {
       const parsed = JSON.parse(jsonInput) as Partial<PresetConfig>;
-      
+
       const validationResult = validatePresetConfig(parsed);
       if (!validationResult.isValid) {
         throw new Error(validationResult.error);
       }
 
       const allPresets = await PresetManager.getAllPresets();
-      const existing = allPresets.find(p => p.id === parsed.id || p.name === parsed.name);
-      
+      const existing = allPresets.find((p) => p.id === parsed.id || p.name === parsed.name);
+
       if (existing) {
         setConflictDetected(true);
         setExistingPreset(existing);
@@ -43,9 +43,9 @@ export function PresetImport({ onImport }: PresetImportProps) {
       }
 
       const presetConfig: PresetConfig = {
-        id: parsed.id || '',
+        id: parsed.id || "",
         name: parsed.name!,
-        description: parsed.description || '',
+        description: parsed.description || "",
         systemPrompt: parsed.systemPrompt!,
         tags: parsed.tags || [],
         isBuiltIn: false,
@@ -63,9 +63,9 @@ export function PresetImport({ onImport }: PresetImportProps) {
 
   const handleImport = async (values: ImportFormValues) => {
     const inputToUse = jsonInput || values.jsonInput;
-    
+
     if (!inputToUse.trim()) {
-      showToast(Toast.Style.Failure, 'Please paste JSON content');
+      showToast(Toast.Style.Failure, "Please paste JSON content");
       return;
     }
 
@@ -73,17 +73,20 @@ export function PresetImport({ onImport }: PresetImportProps) {
 
     try {
       const parsed = JSON.parse(inputToUse);
-      
+
       if (parsed.presets && Array.isArray(parsed.presets)) {
         const options = {
-          overwrite: values.handleConflicts === 'overwrite',
+          overwrite: values.handleConflicts === "overwrite",
           merge: true,
         };
 
         const results = await StorageManager.importAllCustomPresets(inputToUse, options);
-        
+
         if (results.errors.length > 0) {
-          showToast(Toast.Style.Failure, `Import completed with errors: ${results.imported} imported, ${results.skipped} failed`);
+          showToast(
+            Toast.Style.Failure,
+            `Import completed with errors: ${results.imported} imported, ${results.skipped} failed`,
+          );
         } else {
           showToast(Toast.Style.Success, `Successfully imported ${results.imported} presets`);
         }
@@ -91,17 +94,17 @@ export function PresetImport({ onImport }: PresetImportProps) {
         await validateAndParseJSON(inputToUse);
 
         if (!parsedPreset) {
-          throw new Error('Failed to parse preset');
+          throw new Error("Failed to parse preset");
         }
 
         const options = {
-          overwrite: values.handleConflicts === 'overwrite'
+          overwrite: values.handleConflicts === "overwrite",
         };
 
         const importedPreset = await StorageManager.importCustomPreset(inputToUse, options);
         showToast(Toast.Style.Success, `Preset "${importedPreset.name}" imported successfully`);
       }
-      
+
       onImport?.();
       pop();
     } catch (error) {
@@ -113,7 +116,7 @@ export function PresetImport({ onImport }: PresetImportProps) {
 
   const handleJSONInputChange = async (newJsonInput: string) => {
     setJsonInput(newJsonInput);
-    
+
     if (newJsonInput.trim()) {
       try {
         await validateAndParseJSON(newJsonInput);
@@ -131,49 +134,50 @@ export function PresetImport({ onImport }: PresetImportProps) {
 
   const loadSamplePreset = () => {
     const samplePreset: PresetConfig = {
-      id: '',
-      name: 'Sample Custom Preset',
-      description: 'A sample preset to get you started',
-      systemPrompt: 'You are a helpful assistant. Respond to the user\'s request with {{style}} style.\n\nUser request: {{input}}',
-      tags: ['sample', 'template'],
+      id: "",
+      name: "Sample Custom Preset",
+      description: "A sample preset to get you started",
+      systemPrompt:
+        "You are a helpful assistant. Respond to the user's request with {{style}} style.\n\nUser request: {{input}}",
+      tags: ["sample", "template"],
       isBuiltIn: false,
       examples: [
         {
-          input: 'Explain quantum computing',
-          expectedOutput: 'A clear explanation of quantum computing concepts',
-          description: 'Example of how the preset handles technical topics'
-        }
-      ]
+          input: "Explain quantum computing",
+          expectedOutput: "A clear explanation of quantum computing concepts",
+          description: "Example of how the preset handles technical topics",
+        },
+      ],
     };
-    
+
     const sampleJson = JSON.stringify(samplePreset, null, 2);
     handleJSONInputChange(sampleJson);
-    showToast(Toast.Style.Success, 'Sample preset loaded - modify as needed');
+    showToast(Toast.Style.Success, "Sample preset loaded - modify as needed");
   };
 
   const loadFromClipboard = async () => {
     try {
-      const { Clipboard } = await import('@raycast/api');
+      const { Clipboard } = await import("@raycast/api");
       const clipboardText = await Clipboard.readText();
-      
+
       if (!clipboardText) {
-        showToast(Toast.Style.Failure, 'Clipboard is empty');
-        return '';
+        showToast(Toast.Style.Failure, "Clipboard is empty");
+        return "";
       }
 
       // Try to validate the clipboard content
       try {
         await validateAndParseJSON(clipboardText);
-        showToast(Toast.Style.Success, 'Valid preset JSON found in clipboard');
+        showToast(Toast.Style.Success, "Valid preset JSON found in clipboard");
       } catch (error) {
         showToast(Toast.Style.Failure, `Clipboard contains invalid JSON: ${error}`);
-        return '';
+        return "";
       }
 
       return clipboardText;
     } catch (error) {
       showToast(Toast.Style.Failure, `Failed to read clipboard: ${error}`);
-      return '';
+      return "";
     }
   };
 
@@ -182,13 +186,10 @@ export function PresetImport({ onImport }: PresetImportProps) {
       isLoading={isLoading}
       actions={
         <ActionPanel>
-          <Action.SubmitForm
-            title="Import Preset"
-            onSubmit={handleImport}
-          />
+          <Action.SubmitForm title="Import Preset" onSubmit={handleImport} />
           <Action
             title="Load from Clipboard"
-            shortcut={{ modifiers: ['cmd'], key: 'v' }}
+            shortcut={{ modifiers: ["cmd"], key: "v" }}
             onAction={async () => {
               const clipboardText = await loadFromClipboard();
               if (clipboardText) {
@@ -198,7 +199,7 @@ export function PresetImport({ onImport }: PresetImportProps) {
           />
           <Action
             title="Load Sample Preset"
-            shortcut={{ modifiers: ['cmd'], key: 's' }}
+            shortcut={{ modifiers: ["cmd"], key: "s" }}
             onAction={() => loadSamplePreset()}
           />
         </ActionPanel>
@@ -218,7 +219,7 @@ export function PresetImport({ onImport }: PresetImportProps) {
           <Form.Separator />
           <Form.Description
             title="Preview"
-            text={`Name: ${parsedPreset.name}\nDescription: ${parsedPreset.description || 'No description'}\nTags: ${parsedPreset.tags.join(', ') || 'None'}`}
+            text={`Name: ${parsedPreset.name}\nDescription: ${parsedPreset.description || "No description"}\nTags: ${parsedPreset.tags.join(", ") || "None"}`}
           />
         </>
       )}
@@ -228,13 +229,9 @@ export function PresetImport({ onImport }: PresetImportProps) {
           <Form.Separator />
           <Form.Description
             title="⚠️ Conflict Detected"
-            text={`A preset with ${existingPreset.id === parsedPreset?.id ? 'the same ID' : 'the same name'} already exists: "${existingPreset.name}"`}
+            text={`A preset with ${existingPreset.id === parsedPreset?.id ? "the same ID" : "the same name"} already exists: "${existingPreset.name}"`}
           />
-          <Form.Dropdown
-            id="handleConflicts"
-            title="Handle Conflicts"
-            defaultValue="rename"
-          >
+          <Form.Dropdown id="handleConflicts" title="Handle Conflicts" defaultValue="rename">
             <Form.Dropdown.Item value="rename" title="Create with new ID" />
             <Form.Dropdown.Item value="overwrite" title="Overwrite existing preset" />
           </Form.Dropdown>
@@ -242,11 +239,7 @@ export function PresetImport({ onImport }: PresetImportProps) {
       )}
 
       {!conflictDetected && (
-        <Form.Dropdown
-          id="handleConflicts"
-          title="Import Mode"
-          defaultValue="rename"
-        >
+        <Form.Dropdown id="handleConflicts" title="Import Mode" defaultValue="rename">
           <Form.Dropdown.Item value="rename" title="Create as new preset" />
         </Form.Dropdown>
       )}

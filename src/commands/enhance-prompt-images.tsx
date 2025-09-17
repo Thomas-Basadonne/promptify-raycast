@@ -10,7 +10,7 @@ export default function EnhancePromptImages() {
   const [output, setOutput] = useState<string | null>(null);
   const [isEnhancing, setIsEnhancing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   const { clipboardText, isLoading: clipboardLoading, error: clipboardError } = useClipboard();
   const { provider, isProviderReady, providerError } = useProvider();
   const { saveToHistory, exportAsJson, isSaving } = useHistory();
@@ -18,8 +18,8 @@ export default function EnhancePromptImages() {
   const { push } = useNavigation();
 
   // Preset selection with default to images
-  const { selectedPreset, allPresets, loading: presetsLoading, setSelectedPreset } = usePresetSelection('images');
-  
+  const { selectedPreset, allPresets, loading: presetsLoading, setSelectedPreset } = usePresetSelection("images");
+
   const preset = selectedPreset || BUILT_IN_PRESETS.images;
   const isLoading = clipboardLoading || !isProviderReady || isEnhancing || presetsLoading;
 
@@ -47,9 +47,9 @@ export default function EnhancePromptImages() {
       // Render the preset template with input
       const renderedPrompt = PresetManager.renderPreset(preset, {
         input: clipboardText,
-        style: 'photorealistic',
-        quality: 'high resolution',
-        aspect: '16:9',
+        style: "photorealistic",
+        quality: "high resolution",
+        aspect: "16:9",
       });
 
       // Enhance the prompt using rendered template
@@ -64,20 +64,14 @@ export default function EnhancePromptImages() {
 
       // Save to history if enabled
       if (shouldSaveToHistory) {
-        await saveToHistory(
-          clipboardText,
-          enhancedPrompt,
-          preset.id,
-          {
-            provider: provider.name,
-            processingTime,
-          }
-        );
+        await saveToHistory(clipboardText, enhancedPrompt, preset.id, {
+          provider: provider.name,
+          processingTime,
+        });
       }
-
     } catch (err) {
       let errorMessage = "An unexpected error occurred";
-      
+
       if (err instanceof ClipboardError) {
         errorMessage = err.message;
       } else if (err instanceof ProviderError) {
@@ -89,7 +83,7 @@ export default function EnhancePromptImages() {
       }
 
       setError(errorMessage);
-      
+
       await showToast({
         style: Toast.Style.Failure,
         title: "Image Enhancement Failed",
@@ -102,21 +96,16 @@ export default function EnhancePromptImages() {
 
   const handleSave = async () => {
     if (!output || !clipboardText) return;
-    
-    await saveToHistory(
-      clipboardText,
-      output,
-      preset.id,
-      {
-        provider: provider?.name || 'unknown',
-        processingTime: 0,
-      }
-    );
+
+    await saveToHistory(clipboardText, output, preset.id, {
+      provider: provider?.name || "unknown",
+      processingTime: 0,
+    });
   };
 
   const handleExportJson = () => {
     if (!output || !clipboardText) return "";
-    
+
     const jsonData = exportAsJson(clipboardText, output, preset.id);
     return jsonData;
   };
@@ -128,7 +117,7 @@ export default function EnhancePromptImages() {
         selectedPreset={selectedPreset}
         onSelectPreset={setSelectedPreset}
         title="Choose Image Enhancement Preset"
-      />
+      />,
     );
   };
 

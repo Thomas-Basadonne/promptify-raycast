@@ -1,4 +1,4 @@
-import { PresetConfig } from '../core/types';
+import { PresetConfig } from "../core/types";
 
 export interface AIProvider {
   name: string;
@@ -9,10 +9,10 @@ export interface AIProvider {
 
 export abstract class BaseProvider implements AIProvider {
   abstract name: string;
-  
+
   abstract enhance(prompt: string, preset: PresetConfig): Promise<string>;
   abstract isAvailable(): Promise<boolean>;
-  
+
   async getModels(): Promise<string[]> {
     return [];
   }

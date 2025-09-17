@@ -1,1 +1,1 @@
-export { default } from './commands/enhance-prompt-general';
+export { default } from "./commands/enhance-prompt-general";

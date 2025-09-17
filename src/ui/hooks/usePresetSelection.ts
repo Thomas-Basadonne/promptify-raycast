@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { PresetConfig } from '../../core/types';
-import { PresetManager } from '../../core/presets';
-import { StorageManager } from '../../core/storage';
-import { showToast, Toast } from '@raycast/api';
+import { useState, useEffect } from "react";
+import { PresetConfig } from "../../core/types";
+import { PresetManager } from "../../core/presets";
+import { StorageManager } from "../../core/storage";
+import { showToast, Toast } from "@raycast/api";
 
 export interface UsePresetSelectionResult {
   selectedPreset: PresetConfig | null;
@@ -31,31 +31,31 @@ export function usePresetSelection(defaultPresetId?: string): UsePresetSelection
     try {
       // First try the explicitly provided defaultPresetId
       if (defaultPresetId) {
-        const defaultPreset = allPresets.find(p => p.id === defaultPresetId);
+        const defaultPreset = allPresets.find((p) => p.id === defaultPresetId);
         if (defaultPreset) {
           setSelectedPreset(defaultPreset);
           return;
         }
       }
-      
+
       // Then try the last selected preset from settings
       const settings = await StorageManager.getSettings();
       if (settings.lastSelectedPresetId) {
-        const lastPreset = allPresets.find(p => p.id === settings.lastSelectedPresetId);
+        const lastPreset = allPresets.find((p) => p.id === settings.lastSelectedPresetId);
         if (lastPreset) {
           setSelectedPreset(lastPreset);
           return;
         }
       }
-      
+
       // Finally fall back to the defaultPresetId or first preset
-      const fallbackPreset = allPresets.find(p => p.id === defaultPresetId) || allPresets[0];
+      const fallbackPreset = allPresets.find((p) => p.id === defaultPresetId) || allPresets[0];
       if (fallbackPreset) {
         setSelectedPreset(fallbackPreset);
       }
     } catch (error) {
       // If settings fail, just use the defaultPresetId or first preset
-      const fallbackPreset = allPresets.find(p => p.id === defaultPresetId) || allPresets[0];
+      const fallbackPreset = allPresets.find((p) => p.id === defaultPresetId) || allPresets[0];
       if (fallbackPreset) {
         setSelectedPreset(fallbackPreset);
       }
@@ -75,7 +75,7 @@ export function usePresetSelection(defaultPresetId?: string): UsePresetSelection
   };
 
   const getPresetById = (id: string): PresetConfig | null => {
-    return allPresets.find(p => p.id === id) || null;
+    return allPresets.find((p) => p.id === id) || null;
   };
 
   return {

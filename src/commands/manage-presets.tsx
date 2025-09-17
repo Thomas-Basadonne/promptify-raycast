@@ -1,19 +1,19 @@
-import { List, ActionPanel, Action, showToast, Toast, Icon, Clipboard, useNavigation } from '@raycast/api';
-import { useState, useEffect } from 'react';
-import { PresetConfig } from '../core/types';
-import { PresetManager } from '../core/presets';
-import { StorageManager } from '../core/storage';
-import { SUCCESS_MESSAGES, ERROR_MESSAGES } from '../core/constants';
-import { generateId } from '../utils/helpers';
-import { PresetEditor } from '../ui/components/PresetEditor';
-import { PresetImport } from '../ui/components/PresetImport';
-import { useClipboard, useProvider } from '../ui';
+import { List, ActionPanel, Action, showToast, Toast, Icon, Clipboard, useNavigation } from "@raycast/api";
+import { useState, useEffect } from "react";
+import { PresetConfig } from "../core/types";
+import { PresetManager } from "../core/presets";
+import { StorageManager } from "../core/storage";
+import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../core/constants";
+import { generateId } from "../utils/helpers";
+import { PresetEditor } from "../ui/components/PresetEditor";
+import { PresetImport } from "../ui/components/PresetImport";
+import { useClipboard, useProvider } from "../ui";
 
 export default function ManagePresets() {
   const [presets, setPresets] = useState<PresetConfig[]>([]);
   const [loading, setLoading] = useState(true);
   const { push } = useNavigation();
-  
+
   const { clipboardText, error: clipboardError } = useClipboard();
   const { provider, isProviderReady, providerError } = useProvider();
 
@@ -35,7 +35,7 @@ export default function ManagePresets() {
 
   const handleDelete = async (preset: PresetConfig) => {
     if (preset.isBuiltIn) {
-      showToast(Toast.Style.Failure, 'Cannot delete built-in presets');
+      showToast(Toast.Style.Failure, "Cannot delete built-in presets");
       return;
     }
 
@@ -51,20 +51,20 @@ export default function ManagePresets() {
   const handleExport = async (preset: PresetConfig) => {
     try {
       let json: string;
-      
+
       if (preset.isBuiltIn) {
         const cleanPreset = {
           ...preset,
-          id: '',
+          id: "",
           isBuiltIn: false,
         };
         json = JSON.stringify(cleanPreset, null, 2);
       } else {
         json = await StorageManager.exportCustomPreset(preset.id);
       }
-      
+
       await Clipboard.copy(json);
-      showToast(Toast.Style.Success, 'Preset exported to clipboard');
+      showToast(Toast.Style.Success, "Preset exported to clipboard");
     } catch (error) {
       showToast(Toast.Style.Failure, `Failed to export preset: ${error}`);
     }
@@ -74,7 +74,7 @@ export default function ManagePresets() {
     try {
       const duplicated: PresetConfig = {
         ...preset,
-        id: generateId('preset'),
+        id: generateId("preset"),
         name: `${preset.name} (Copy)`,
         isBuiltIn: false,
         createdAt: Date.now(),
@@ -82,7 +82,7 @@ export default function ManagePresets() {
       };
 
       await StorageManager.saveCustomPreset(duplicated);
-      showToast(Toast.Style.Success, 'Preset duplicated');
+      showToast(Toast.Style.Success, "Preset duplicated");
       await loadPresets();
     } catch (error) {
       showToast(Toast.Style.Failure, `Failed to duplicate preset: ${error}`);
@@ -93,32 +93,32 @@ export default function ManagePresets() {
     try {
       // Check if we have clipboard text
       if (!clipboardText || clipboardText.trim().length === 0) {
-        showToast(Toast.Style.Failure, 'No text in clipboard', 'Copy some text first, then use this preset');
+        showToast(Toast.Style.Failure, "No text in clipboard", "Copy some text first, then use this preset");
         return;
       }
 
       if (!provider || !isProviderReady) {
-        showToast(Toast.Style.Failure, 'AI provider not available', 'Please check your provider settings');
+        showToast(Toast.Style.Failure, "AI provider not available", "Please check your provider settings");
         return;
       }
 
       if (clipboardError || providerError) {
-        showToast(Toast.Style.Failure, 'Error detected', clipboardError || providerError || 'Unknown error');
+        showToast(Toast.Style.Failure, "Error detected", clipboardError || providerError || "Unknown error");
         return;
       }
 
       const validation = PresetManager.validatePrompt(clipboardText);
       if (!validation.isValid) {
-        showToast(Toast.Style.Failure, 'Invalid input', validation.error);
+        showToast(Toast.Style.Failure, "Invalid input", validation.error);
         return;
       }
 
-      showToast(Toast.Style.Animated, 'Enhancing...', `Using preset "${preset.name}"`);
+      showToast(Toast.Style.Animated, "Enhancing...", `Using preset "${preset.name}"`);
 
       const renderedPrompt = PresetManager.renderPreset(preset, {
         input: clipboardText,
-        style: 'professional',
-        format: 'clear and concise',
+        style: "professional",
+        format: "clear and concise",
       });
 
       const enhancedPrompt = await provider.enhance(clipboardText, {
@@ -127,24 +127,23 @@ export default function ManagePresets() {
       });
 
       await Clipboard.copy(enhancedPrompt);
-      
+
       await showToast({
         style: Toast.Style.Success,
-        title: 'Enhancement Complete',
-        message: `Enhanced with "${preset.name}" and copied to clipboard`
+        title: "Enhancement Complete",
+        message: `Enhanced with "${preset.name}" and copied to clipboard`,
       });
-
     } catch (error) {
-      showToast(Toast.Style.Failure, 'Enhancement failed', `${error}`);
+      showToast(Toast.Style.Failure, "Enhancement failed", `${error}`);
     }
   };
 
   const handleExportAll = async () => {
     try {
-      const customPresets = presets.filter(p => !p.isBuiltIn);
-      
+      const customPresets = presets.filter((p) => !p.isBuiltIn);
+
       if (customPresets.length === 0) {
-        showToast(Toast.Style.Failure, 'No custom presets to export');
+        showToast(Toast.Style.Failure, "No custom presets to export");
         return;
       }
 
@@ -158,9 +157,9 @@ export default function ManagePresets() {
 
   const getPresetIcon = (preset: PresetConfig): Icon => {
     if (preset.isBuiltIn) {
-      if (preset.id === 'general') return Icon.Document;
-      if (preset.id === 'images') return Icon.Image;
-      if (preset.id === 'code') return Icon.Code;
+      if (preset.id === "general") return Icon.Document;
+      if (preset.id === "images") return Icon.Image;
+      if (preset.id === "code") return Icon.Code;
       return Icon.Gear;
     }
     return Icon.Person;
@@ -168,9 +167,9 @@ export default function ManagePresets() {
 
   const getPresetAccessory = (preset: PresetConfig) => {
     const tags = [];
-    if (preset.isBuiltIn) tags.push('Built-in');
+    if (preset.isBuiltIn) tags.push("Built-in");
     if (preset.tags?.length > 0) tags.push(...preset.tags.slice(0, 2));
-    return tags.join(' • ');
+    return tags.join(" • ");
   };
 
   return (
@@ -185,24 +184,20 @@ export default function ManagePresets() {
             actions={
               <ActionPanel>
                 <ActionPanel.Section title="Use Preset">
-                  <Action
-                    title="Enhance with This Preset"
-                    icon={Icon.Play}
-                    onAction={() => handleUse(preset)}
-                  />
+                  <Action title="Enhance with This Preset" icon={Icon.Play} onAction={() => handleUse(preset)} />
                 </ActionPanel.Section>
 
                 <ActionPanel.Section title="Manage">
                   <Action
                     title="Duplicate"
                     icon={Icon.Duplicate}
-                    shortcut={{ modifiers: ['cmd'], key: 'd' }}
+                    shortcut={{ modifiers: ["cmd"], key: "d" }}
                     onAction={() => handleDuplicate(preset)}
                   />
                   <Action
                     title="Export as JSON"
                     icon={Icon.Download}
-                    shortcut={{ modifiers: ['cmd'], key: 'e' }}
+                    shortcut={{ modifiers: ["cmd"], key: "e" }}
                     onAction={() => handleExport(preset)}
                   />
                   {!preset.isBuiltIn && (
@@ -210,7 +205,7 @@ export default function ManagePresets() {
                       <Action
                         title="Edit"
                         icon={Icon.Pencil}
-                        shortcut={{ modifiers: ['cmd'], key: 'i' }}
+                        shortcut={{ modifiers: ["cmd"], key: "i" }}
                         onAction={() => {
                           push(<PresetEditor preset={preset} onSave={() => loadPresets()} />);
                         }}
@@ -219,7 +214,7 @@ export default function ManagePresets() {
                         title="Delete"
                         icon={Icon.Trash}
                         style={Action.Style.Destructive}
-                        shortcut={{ modifiers: ['cmd'], key: 'backspace' }}
+                        shortcut={{ modifiers: ["cmd"], key: "backspace" }}
                         onAction={() => handleDelete(preset)}
                       />
                     </>
@@ -230,7 +225,7 @@ export default function ManagePresets() {
                   <Action
                     title="Create New Preset"
                     icon={Icon.Plus}
-                    shortcut={{ modifiers: ['cmd'], key: 'n' }}
+                    shortcut={{ modifiers: ["cmd"], key: "n" }}
                     onAction={() => {
                       push(<PresetEditor onSave={() => loadPresets()} />);
                     }}
@@ -238,7 +233,7 @@ export default function ManagePresets() {
                   <Action
                     title="Import from JSON"
                     icon={Icon.Upload}
-                    shortcut={{ modifiers: ['cmd', 'shift'], key: 'i' }}
+                    shortcut={{ modifiers: ["cmd", "shift"], key: "i" }}
                     onAction={() => {
                       push(<PresetImport onImport={() => loadPresets()} />);
                     }}
@@ -246,7 +241,7 @@ export default function ManagePresets() {
                   <Action
                     title="Export All Custom Presets"
                     icon={Icon.Download}
-                    shortcut={{ modifiers: ['cmd', 'shift'], key: 'e' }}
+                    shortcut={{ modifiers: ["cmd", "shift"], key: "e" }}
                     onAction={handleExportAll}
                   />
                 </ActionPanel.Section>

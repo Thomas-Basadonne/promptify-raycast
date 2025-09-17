@@ -1,1 +1,1 @@
-export { default } from './commands/manage-presets';
+export { default } from "./commands/manage-presets";

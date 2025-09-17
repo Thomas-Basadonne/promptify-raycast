@@ -1,5 +1,5 @@
-import { VALIDATION, ERROR_MESSAGES } from '../../core/constants';
-import { PresetConfig } from '../../core/types';
+import { VALIDATION, ERROR_MESSAGES } from "../../core/constants";
+import { PresetConfig } from "../../core/types";
 
 export interface ValidationResult {
   isValid: boolean;
@@ -40,7 +40,7 @@ export function validateModelName(modelName: string): ValidationResult {
   if (!modelName || modelName.trim().length === 0) {
     return {
       isValid: false,
-      error: 'Model name is required',
+      error: "Model name is required",
     };
   }
 
@@ -49,7 +49,7 @@ export function validateModelName(modelName: string): ValidationResult {
   if (!modelNameRegex.test(modelName)) {
     return {
       isValid: false,
-      error: 'Invalid model name format',
+      error: "Invalid model name format",
     };
   }
 
@@ -60,7 +60,7 @@ export function validateUrl(url: string): ValidationResult {
   if (!url || url.trim().length === 0) {
     return {
       isValid: false,
-      error: 'URL is required',
+      error: "URL is required",
     };
   }
 
@@ -70,7 +70,7 @@ export function validateUrl(url: string): ValidationResult {
   } catch {
     return {
       isValid: false,
-      error: 'Invalid URL format',
+      error: "Invalid URL format",
     };
   }
 }
@@ -78,16 +78,16 @@ export function validateUrl(url: string): ValidationResult {
 export function sanitizeInput(input: string): string {
   return input
     .trim()
-    .replace(/\r\n/g, '\n') // Normalize line endings
-    .replace(/\r/g, '\n')   // Convert CR to LF
-    .replace(/\n{3,}/g, '\n\n'); // Limit consecutive newlines
+    .replace(/\r\n/g, "\n") // Normalize line endings
+    .replace(/\r/g, "\n") // Convert CR to LF
+    .replace(/\n{3,}/g, "\n\n"); // Limit consecutive newlines
 }
 
 export function validatePresetId(presetId: string): ValidationResult {
   if (!presetId || presetId.trim().length === 0) {
     return {
       isValid: false,
-      error: 'Preset ID is required',
+      error: "Preset ID is required",
     };
   }
 
@@ -96,7 +96,7 @@ export function validatePresetId(presetId: string): ValidationResult {
   if (!presetIdRegex.test(presetId)) {
     return {
       isValid: false,
-      error: 'Invalid preset ID format',
+      error: "Invalid preset ID format",
     };
   }
 
@@ -108,14 +108,14 @@ export function validatePresetConfig(preset: Partial<PresetConfig>): ValidationR
   if (!preset.name || preset.name.trim().length === 0) {
     return {
       isValid: false,
-      error: 'Preset name is required',
+      error: "Preset name is required",
     };
   }
 
   if (!preset.systemPrompt || preset.systemPrompt.trim().length === 0) {
     return {
       isValid: false,
-      error: 'System prompt is required',
+      error: "System prompt is required",
     };
   }
 

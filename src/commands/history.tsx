@@ -1,15 +1,4 @@
-import { 
-  Action, 
-  ActionPanel, 
-  List, 
-  Clipboard, 
-  showToast, 
-  Toast, 
-  Alert, 
-  confirmAlert,
-  Icon,
-  Color
-} from "@raycast/api";
+import { Action, ActionPanel, List, Clipboard, showToast, Toast, Alert, confirmAlert, Icon, Color } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { StorageManager } from "../core/storage";
 import { HistoryItem } from "../core/types";
@@ -33,7 +22,7 @@ export default function History() {
       await showToast({
         style: Toast.Style.Failure,
         title: "Failed to Load History",
-        message: error instanceof Error ? error.message : "Unknown error"
+        message: error instanceof Error ? error.message : "Unknown error",
       });
     } finally {
       setIsLoading(false);
@@ -45,7 +34,7 @@ export default function History() {
     await showToast({
       style: Toast.Style.Success,
       title: SUCCESS_MESSAGES.COPIED_TO_CLIPBOARD,
-      message: "Enhanced prompt copied to clipboard"
+      message: "Enhanced prompt copied to clipboard",
     });
   };
 
@@ -54,7 +43,7 @@ export default function History() {
     await showToast({
       style: Toast.Style.Success,
       title: SUCCESS_MESSAGES.COPIED_TO_CLIPBOARD,
-      message: "Original prompt copied to clipboard"
+      message: "Original prompt copied to clipboard",
     });
   };
 
@@ -63,7 +52,7 @@ export default function History() {
     await showToast({
       style: Toast.Style.Success,
       title: SUCCESS_MESSAGES.PASTED_SUCCESSFULLY,
-      message: "Enhanced prompt pasted to active app"
+      message: "Enhanced prompt pasted to active app",
     });
   };
 
@@ -78,15 +67,15 @@ export default function History() {
       metadata: {
         ...item.metadata,
         version: "1.0.0",
-        tool: "Promptify"
-      }
+        tool: "Promptify",
+      },
     };
 
     await Clipboard.copy(JSON.stringify(exportData, null, 2));
     await showToast({
       style: Toast.Style.Success,
       title: "JSON Exported",
-      message: "Prompt data copied as JSON"
+      message: "Prompt data copied as JSON",
     });
   };
 
@@ -103,17 +92,17 @@ export default function History() {
     if (confirmed) {
       try {
         await StorageManager.deleteHistoryItem(item.id);
-        setHistory(prev => prev.filter(h => h.id !== item.id));
+        setHistory((prev) => prev.filter((h) => h.id !== item.id));
         await showToast({
           style: Toast.Style.Success,
           title: SUCCESS_MESSAGES.DELETED_FROM_HISTORY,
-          message: "Prompt removed from history"
+          message: "Prompt removed from history",
         });
       } catch (error) {
         await showToast({
           style: Toast.Style.Failure,
           title: "Delete Failed",
-          message: error instanceof Error ? error.message : "Unknown error"
+          message: error instanceof Error ? error.message : "Unknown error",
         });
       }
     }
@@ -136,13 +125,13 @@ export default function History() {
         await showToast({
           style: Toast.Style.Success,
           title: SUCCESS_MESSAGES.HISTORY_CLEARED,
-          message: "All history items deleted"
+          message: "All history items deleted",
         });
       } catch (error) {
         await showToast({
           style: Toast.Style.Failure,
           title: "Clear Failed",
-          message: error instanceof Error ? error.message : "Unknown error"
+          message: error instanceof Error ? error.message : "Unknown error",
         });
       }
     }
@@ -153,7 +142,7 @@ export default function History() {
       await showToast({
         style: Toast.Style.Failure,
         title: "No History to Export",
-        message: "History is empty"
+        message: "History is empty",
       });
       return;
     }
@@ -163,9 +152,9 @@ export default function History() {
         exported_at: new Date().toISOString(),
         tool: "Promptify",
         version: "1.0.0",
-        total_items: history.length
+        total_items: history.length,
       },
-      history: history.map(item => ({
+      history: history.map((item) => ({
         id: item.id,
         timestamp: item.timestamp,
         created: new Date(item.timestamp).toISOString(),
@@ -176,26 +165,26 @@ export default function History() {
           ...item.metadata,
           original_length: item.input.length,
           enhanced_length: item.output.length,
-          enhancement_ratio: (item.output.length / item.input.length).toFixed(2)
-        }
-      }))
+          enhancement_ratio: (item.output.length / item.input.length).toFixed(2),
+        },
+      })),
     };
 
     await Clipboard.copy(JSON.stringify(exportData, null, 2));
     await showToast({
       style: Toast.Style.Success,
       title: "All History Exported",
-      message: `${history.length} items copied as JSON`
+      message: `${history.length} items copied as JSON`,
     });
   };
 
   const getPresetIcon = (presetId: string) => {
     switch (presetId) {
-      case 'general':
+      case "general":
         return { source: Icon.Document, tintColor: Color.Blue };
-      case 'images':
+      case "images":
         return { source: Icon.Image, tintColor: Color.Purple };
-      case 'code':
+      case "code":
         return { source: Icon.Code, tintColor: Color.Green };
       default:
         return { source: Icon.Gear, tintColor: Color.SecondaryText };
@@ -211,7 +200,7 @@ export default function History() {
   );
 
   return (
-    <List 
+    <List
       isLoading={isLoading}
       searchBarPlaceholder={`Search ${history.length} history items...`}
       actions={
@@ -239,10 +228,10 @@ export default function History() {
             subtitle={formatPresetDescription(item.presetId)}
             accessories={[
               { text: formatTimeAgo(item.timestamp) },
-              { 
+              {
                 text: `${item.output.length} chars`,
-                tooltip: `Enhanced output: ${item.output.length} characters` 
-              }
+                tooltip: `Enhanced output: ${item.output.length} characters`,
+              },
             ]}
             actions={
               <ActionPanel>
