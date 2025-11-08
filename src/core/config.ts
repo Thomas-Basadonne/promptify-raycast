@@ -1,8 +1,8 @@
-import { getPreferenceValues } from '@raycast/api';
-import { DEFAULTS, PROVIDERS } from './constants';
+import { getPreferenceValues } from "@raycast/api";
+import { DEFAULTS, PROVIDERS } from "./constants";
 
 export interface AppConfig {
-  provider: 'ollama' | 'openai';
+  provider: "ollama" | "openai";
   ollama: {
     url: string;
     model: string;
@@ -21,7 +21,7 @@ export interface AppConfig {
 }
 
 interface RaycastPreferences {
-  provider: 'ollama' | 'openai';
+  provider: "ollama" | "openai";
   ollamaUrl: string;
   ollamaModel: string;
   autoPaste: boolean;
@@ -30,7 +30,7 @@ interface RaycastPreferences {
 
 export function getConfig(): AppConfig {
   const preferences = getPreferenceValues<RaycastPreferences>();
-  
+
   return {
     provider: preferences.provider || PROVIDERS.OLLAMA,
     ollama: {
@@ -41,7 +41,7 @@ export function getConfig(): AppConfig {
     openai: {
       apiKey: undefined, // Will be added when OpenAI provider is implemented
       baseUrl: undefined,
-      model: 'gpt-3.5-turbo',
+      model: "gpt-3.5-turbo",
     },
     ui: {
       autoPaste: preferences.autoPaste ?? DEFAULTS.AUTO_PASTE,
@@ -53,36 +53,36 @@ export function getConfig(): AppConfig {
 
 export function validateConfig(config: AppConfig): { isValid: boolean; errors: string[] } {
   const errors: string[] = [];
-  
+
   // Validate provider
   if (!config.provider || !Object.values(PROVIDERS).includes(config.provider)) {
-    errors.push('Invalid provider selected');
+    errors.push("Invalid provider selected");
   }
-  
+
   // Validate Ollama config
   if (config.provider === PROVIDERS.OLLAMA) {
     if (!config.ollama.url) {
-      errors.push('Ollama URL is required');
+      errors.push("Ollama URL is required");
     }
-    
+
     try {
       new URL(config.ollama.url);
     } catch {
-      errors.push('Invalid Ollama URL format');
+      errors.push("Invalid Ollama URL format");
     }
-    
+
     if (!config.ollama.model) {
-      errors.push('Ollama model is required');
+      errors.push("Ollama model is required");
     }
   }
-  
+
   // Validate OpenAI config (future implementation)
   if (config.provider === PROVIDERS.OPENAI) {
     if (!config.openai.apiKey) {
-      errors.push('OpenAI API key is required');
+      errors.push("OpenAI API key is required");
     }
   }
-  
+
   return {
     isValid: errors.length === 0,
     errors,

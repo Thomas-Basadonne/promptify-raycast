@@ -1,7 +1,7 @@
 // Application constants
 
-export const APP_NAME = 'Promptify';
-export const APP_VERSION = '1.0.0';
+export const APP_NAME = "Promptify";
+export const APP_VERSION = "1.0.0";
 
 // Validation limits
 export const VALIDATION = {
@@ -19,15 +19,15 @@ export const VALIDATION = {
 
 // Storage keys
 export const STORAGE_KEYS = {
-  HISTORY: 'promptify.history',
-  SETTINGS: 'promptify.settings',
-  CUSTOM_PRESETS: 'promptify.presets.custom',
+  HISTORY: "promptify.history",
+  SETTINGS: "promptify.settings",
+  CUSTOM_PRESETS: "promptify.presets.custom",
 } as const;
 
 // Default configuration
 export const DEFAULTS = {
-  OLLAMA_URL: 'http://localhost:11434',
-  OLLAMA_MODEL: 'llama3.2:3b',
+  OLLAMA_URL: "http://localhost:11434",
+  OLLAMA_MODEL: "llama3.2:3b",
   OLLAMA_TIMEOUT: 30000,
   AUTO_PASTE: false,
   SAVE_TO_HISTORY: true,
@@ -35,15 +35,15 @@ export const DEFAULTS = {
 
 // Provider types
 export const PROVIDERS = {
-  OLLAMA: 'ollama',
-  OPENAI: 'openai',
+  OLLAMA: "ollama",
+  OPENAI: "openai",
 } as const;
 
 // Preset types
 export const PRESET_TYPES = {
-  GENERAL: 'general',
-  IMAGES: 'images',
-  CODE: 'code',
+  GENERAL: "general",
+  IMAGES: "images",
+  CODE: "code",
 } as const;
 
 // UI constants
@@ -55,23 +55,23 @@ export const UI = {
 
 // Error messages
 export const ERROR_MESSAGES = {
-  CLIPBOARD_EMPTY: 'No text found in clipboard. Copy some text and try again.',
+  CLIPBOARD_EMPTY: "No text found in clipboard. Copy some text and try again.",
   PROMPT_TOO_SHORT: `Prompt must be at least ${VALIDATION.MIN_PROMPT_LENGTH} characters long.`,
   PROMPT_TOO_LONG: `Prompt cannot exceed ${VALIDATION.MAX_PROMPT_LENGTH} characters.`,
-  PROVIDER_UNAVAILABLE: 'AI provider is not available. Please check your settings.',
-  NETWORK_ERROR: 'Network error occurred. Please check your connection.',
-  STORAGE_ERROR: 'Failed to save data. Please try again.',
-  OLLAMA_NOT_RUNNING: 'Ollama is not running. Please start Ollama with: ollama serve',
-  MODEL_NOT_FOUND: 'Model not found. Please check your model name in preferences.',
+  PROVIDER_UNAVAILABLE: "AI provider is not available. Please check your settings.",
+  NETWORK_ERROR: "Network error occurred. Please check your connection.",
+  STORAGE_ERROR: "Failed to save data. Please try again.",
+  OLLAMA_NOT_RUNNING: "Ollama is not running. Please start Ollama with: ollama serve",
+  MODEL_NOT_FOUND: "Model not found. Please check your model name in preferences.",
 } as const;
 
 // Success messages
 export const SUCCESS_MESSAGES = {
-  COPIED_TO_CLIPBOARD: 'Copied to clipboard',
-  PASTED_SUCCESSFULLY: 'Pasted successfully',
-  SAVED_TO_HISTORY: 'Saved to history',
-  DELETED_FROM_HISTORY: 'Deleted from history',
-  HISTORY_CLEARED: 'History cleared',
-  PRESET_SAVED: 'Preset saved successfully',
-  PRESET_DELETED: 'Preset deleted successfully',
+  COPIED_TO_CLIPBOARD: "Copied to clipboard",
+  PASTED_SUCCESSFULLY: "Pasted successfully",
+  SAVED_TO_HISTORY: "Saved to history",
+  DELETED_FROM_HISTORY: "Deleted from history",
+  HISTORY_CLEARED: "History cleared",
+  PRESET_SAVED: "Preset saved successfully",
+  PRESET_DELETED: "Preset deleted successfully",
 } as const;

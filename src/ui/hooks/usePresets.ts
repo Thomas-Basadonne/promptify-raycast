@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
-import { showToast, Toast } from '@raycast/api';
-import { PresetConfig } from '../../core/types';
-import { PresetManager } from '../../core/presets';
-import { generateId } from '../../utils/helpers';
+import { useState, useCallback } from "react";
+import { showToast, Toast } from "@raycast/api";
+import { PresetConfig } from "../../core/types";
+import { PresetManager } from "../../core/presets";
+import { generateId } from "../../utils/helpers";
 
 export interface UsePresetEditorResult {
   preset: Partial<PresetConfig>;
@@ -16,41 +16,43 @@ export interface UsePresetEditorResult {
 }
 
 export function usePresetEditor(initialPreset?: Partial<PresetConfig>): UsePresetEditorResult {
-  const [preset, setPreset] = useState<Partial<PresetConfig>>(initialPreset || {
-    name: '',
-    description: '',
-    systemPrompt: '',
-    tags: [],
-  });
-  
+  const [preset, setPreset] = useState<Partial<PresetConfig>>(
+    initialPreset || {
+      name: "",
+      description: "",
+      systemPrompt: "",
+      tags: [],
+    },
+  );
+
   const [originalPreset] = useState<Partial<PresetConfig>>(initialPreset || {});
 
   const updateField = useCallback(<K extends keyof PresetConfig>(key: K, value: PresetConfig[K]) => {
-    setPreset(prev => ({ ...prev, [key]: value }));
+    setPreset((prev) => ({ ...prev, [key]: value }));
   }, []);
 
   const validation = PresetManager.validatePreset(preset);
   const isDirty = JSON.stringify(preset) !== JSON.stringify(originalPreset);
 
-  const preview = preset.systemPrompt 
-    ? PresetManager.renderPreset(preset as PresetConfig, { 
-        input: 'Sample input text',
-        topic: 'example topic',
-        style: 'professional',
+  const preview = preset.systemPrompt
+    ? PresetManager.renderPreset(preset as PresetConfig, {
+        input: "Sample input text",
+        topic: "example topic",
+        style: "professional",
       })
-    : '';
+    : "";
 
   const save = useCallback(async (): Promise<boolean> => {
     if (!validation.valid) {
-      showToast(Toast.Style.Failure, `Cannot save: ${validation.errors.join(', ')}`);
+      showToast(Toast.Style.Failure, `Cannot save: ${validation.errors.join(", ")}`);
       return false;
     }
-    
+
     try {
       const fullPreset: PresetConfig = {
-        id: preset.id || generateId('preset'),
+        id: preset.id || generateId("preset"),
         name: preset.name!,
-        description: preset.description || '',
+        description: preset.description || "",
         systemPrompt: preset.systemPrompt!,
         tags: preset.tags || [],
         isBuiltIn: false,
@@ -60,7 +62,7 @@ export function usePresetEditor(initialPreset?: Partial<PresetConfig>): UsePrese
       };
 
       await PresetManager.saveCustomPreset(fullPreset);
-      showToast(Toast.Style.Success, 'Preset saved successfully');
+      showToast(Toast.Style.Success, "Preset saved successfully");
       return true;
     } catch (error) {
       showToast(Toast.Style.Failure, `Failed to save preset: ${error}`);

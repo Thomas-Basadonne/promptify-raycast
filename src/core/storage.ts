@@ -1,19 +1,16 @@
-import { LocalStorage, getPreferenceValues } from '@raycast/api';
-import { HistoryItem, AppSettings, PresetConfig, StorageError } from './types';
-import { STORAGE_KEYS, VALIDATION } from './constants';
-import { generateId } from '../utils/helpers';
+import { LocalStorage, getPreferenceValues } from "@raycast/api";
+import { HistoryItem, AppSettings, PresetConfig, StorageError } from "./types";
+import { STORAGE_KEYS, VALIDATION } from "./constants";
+import { generateId } from "../utils/helpers";
 
 export class StorageManager {
   // History operations
-  static async saveToHistory(item: Omit<HistoryItem, 'id' | 'timestamp'>): Promise<string> {
+  static async saveToHistory(item: Omit<HistoryItem, "id" | "timestamp">): Promise<string> {
     try {
       const preferences = getPreferenceValues<{ maxHistoryItems: string }>();
-      const maxItems = Math.min(
-        parseInt(preferences.maxHistoryItems || '50'),
-        VALIDATION.MAX_HISTORY_ITEMS_LIMIT
-      );
+      const maxItems = Math.min(parseInt(preferences.maxHistoryItems || "50"), VALIDATION.MAX_HISTORY_ITEMS_LIMIT);
 
-      const id = generateId('hist');
+      const id = generateId("hist");
       const historyItem: HistoryItem = {
         ...item,
         id,
@@ -45,7 +42,7 @@ export class StorageManager {
   static async deleteHistoryItem(id: string): Promise<void> {
     try {
       const history = await this.getHistory();
-      const updatedHistory = history.filter(item => item.id !== id);
+      const updatedHistory = history.filter((item) => item.id !== id);
       await LocalStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(updatedHistory));
     } catch (error) {
       throw new StorageError(`Failed to delete history item: ${error}`);
@@ -86,7 +83,7 @@ export class StorageManager {
       const presets = await this.getCustomPresets();
 
       // upsert: remove existing with same id (if any)
-      const existingIndex = presets.findIndex(p => p.id === preset.id);
+      const existingIndex = presets.findIndex((p) => p.id === preset.id);
       const now = Date.now();
 
       const toSave: PresetConfig = {
@@ -128,7 +125,7 @@ export class StorageManager {
   static async deleteCustomPreset(id: string): Promise<void> {
     try {
       const presets = await this.getCustomPresets();
-      const updatedPresets = presets.filter(p => p.id !== id);
+      const updatedPresets = presets.filter((p) => p.id !== id);
       await LocalStorage.setItem(STORAGE_KEYS.CUSTOM_PRESETS, JSON.stringify(updatedPresets));
     } catch (error) {
       throw new StorageError(`Failed to delete custom preset: ${error}`);
@@ -139,12 +136,12 @@ export class StorageManager {
   static async exportCustomPreset(id: string): Promise<string> {
     try {
       const presets = await this.getCustomPresets();
-      const preset = presets.find(p => p.id === id);
+      const preset = presets.find((p) => p.id === id);
       if (!preset) throw new StorageError(`Preset not found: ${id}`);
 
       // Minimal validation before export
       if (!preset.name || !preset.systemPrompt) {
-        throw new StorageError('Invalid preset: missing name or systemPrompt');
+        throw new StorageError("Invalid preset: missing name or systemPrompt");
       }
 
       return JSON.stringify(preset, null, 2);
@@ -157,21 +154,21 @@ export class StorageManager {
   static async exportAllCustomPresets(): Promise<string> {
     try {
       const presets = await this.getCustomPresets();
-      
+
       if (presets.length === 0) {
-        throw new StorageError('No custom presets to export');
+        throw new StorageError("No custom presets to export");
       }
 
       // Validate all presets before export
       for (const preset of presets) {
         if (!preset.name || !preset.systemPrompt) {
-          throw new StorageError(`Invalid preset found: ${preset.id || 'unknown'}`);
+          throw new StorageError(`Invalid preset found: ${preset.id || "unknown"}`);
         }
       }
 
       const exportData = {
         exportedAt: new Date().toISOString(),
-        version: '1.0.0',
+        version: "1.0.0",
         presetsCount: presets.length,
         presets: presets,
       };
@@ -189,18 +186,18 @@ export class StorageManager {
 
       // Basic shape validation
       if (!parsed.name || !parsed.systemPrompt) {
-        throw new StorageError('Invalid preset JSON: missing required fields (name, systemPrompt)');
+        throw new StorageError("Invalid preset JSON: missing required fields (name, systemPrompt)");
       }
 
       const presets = await this.getCustomPresets();
 
       // determine id
-      let id = parsed.id || generateId('preset');
-      const existingIndex = presets.findIndex(p => p.id === id);
+      let id = parsed.id || generateId("preset");
+      const existingIndex = presets.findIndex((p) => p.id === id);
 
       if (existingIndex >= 0 && !options?.overwrite) {
         // generate unique id to avoid overwrite
-        id = generateId('preset');
+        id = generateId("preset");
       }
 
       const now = Date.now();
@@ -208,7 +205,7 @@ export class StorageManager {
       const toSave: PresetConfig = {
         id,
         name: parsed.name!,
-        description: parsed.description || '',
+        description: parsed.description || "",
         systemPrompt: parsed.systemPrompt!,
         tags: parsed.tags || [],
         isBuiltIn: false,
@@ -218,8 +215,9 @@ export class StorageManager {
       };
 
       // upsert
-      const idx = presets.findIndex(p => p.id === toSave.id);
-      if (idx >= 0) presets[idx] = toSave; else presets.push(toSave);
+      const idx = presets.findIndex((p) => p.id === toSave.id);
+      if (idx >= 0) presets[idx] = toSave;
+      else presets.push(toSave);
 
       // enforce max
       if (presets.length > VALIDATION.MAX_CUSTOM_PRESETS) {
@@ -238,20 +236,20 @@ export class StorageManager {
 
   // Import multiple presets from export file
   static async importAllCustomPresets(
-    json: string, 
-    options?: { overwrite?: boolean; merge?: boolean }
+    json: string,
+    options?: { overwrite?: boolean; merge?: boolean },
   ): Promise<{ imported: number; skipped: number; errors: string[] }> {
     try {
       const parsed = JSON.parse(json);
-      
+
       // Validate export format
       if (!parsed.presets || !Array.isArray(parsed.presets)) {
-        throw new StorageError('Invalid export format: missing presets array');
+        throw new StorageError("Invalid export format: missing presets array");
       }
 
       const existingPresets = await this.getCustomPresets();
       const results = { imported: 0, skipped: 0, errors: [] as string[] };
-      
+
       // If not merging, clear existing presets first
       if (!options?.merge && !options?.overwrite) {
         await LocalStorage.setItem(STORAGE_KEYS.CUSTOM_PRESETS, JSON.stringify([]));
@@ -264,7 +262,7 @@ export class StorageManager {
           await this.importCustomPreset(JSON.stringify(presetData), options);
           results.imported++;
         } catch (error) {
-          results.errors.push(`Failed to import preset "${presetData.name || 'unknown'}": ${error}`);
+          results.errors.push(`Failed to import preset "${presetData.name || "unknown"}": ${error}`);
           results.skipped++;
         }
       }
