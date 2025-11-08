@@ -2,14 +2,21 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "promptify",
   "title": "Promptify",
-  "description": "One-key prompt enhancer for any AI. \nSelect → copy → Promptify shows a clean, structured version. \nWorks locally with Ollama. \nHistory + JSON export.",
+  "description": "One-key prompt enhancer for any AI. Select → copy → Promptify shows a clean, structured version. Works locally with Ollama. History + JSON export.",
   "icon": "extension-icon-512.png",
   "author": "thomas-basadonne",
   "license": "MIT",
+  "categories": [
+    "Productivity",
+    "Developer Tools"
+  ],
+  "platforms": [
+    "macOS"
+  ],
   "commands": [
     {
       "name": "enhance-prompt-general",
-      "title": "Enhance Prompt (General)",
+      "title": "Enhance Prompt (general)",
       "subtitle": "Preview → Copy/Paste",
       "description": "Reads text from Clipboard, applies the General preset, shows a Markdown preview, then Copy / Paste into the active app. Saves to History and lets you export JSON.",
       "mode": "view"

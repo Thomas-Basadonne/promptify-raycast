@@ -4,6 +4,19 @@
 
 > Transform any text into clear, structured prompts that get better AI results. One keystroke to enhance your prompts for any AI tool.
 
+## 📦 Requirements
+
+**Before using Promptify, you need:**
+
+1. **Ollama installed and running** ([ollama.ai](https://ollama.ai/))
+   - Run `ollama serve` in your terminal
+   - Download a model: `ollama pull llama3.2:3b` (recommended, ~2GB)
+   - Other compatible models: `llama3.2:1b`, `mistral`, `gemma2`
+
+2. **Raycast**
+
+**Privacy-first**: All processing happens locally on your machine. No data is sent to external servers.
+
 ## ✨ Features
 
 - **🎯 General Enhancement**: Structure any prompt with clear objectives, context, and success criteria
