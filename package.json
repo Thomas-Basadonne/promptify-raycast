@@ -16,7 +16,7 @@
   "commands": [
     {
       "name": "enhance-prompt-general",
-      "title": "Enhance Prompt (general)",
+      "title": "Enhance Prompt - General",
       "subtitle": "Preview → Copy/Paste",
       "description": "Reads text from Clipboard, applies the General preset, shows a Markdown preview, then Copy / Paste into the active app. Saves to History and lets you export JSON.",
       "mode": "view"

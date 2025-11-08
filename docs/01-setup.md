@@ -46,11 +46,12 @@ ollama list
 
 #### Model Recommendations
 
-| Model | Size | RAM Required | Best For |
-|-------|------|--------------|----------|
-| `llama3.2:3b` | ~2GB | 4GB+ | Quick enhancements, general use |
-| `llama3.1:8b` | ~5GB | 8GB+ | Complex prompts, detailed output |
-| `mistral:7b` | ~4GB | 6GB+ | Alternative option with good performance |
+| Model            | Size    | RAM Required | Best For                                         |
+| ---------------- | ------- | ------------ | ------------------------------------------------ |
+| `llama3.2:3b`    | \~2GB   | 4GB+         | Quick enhancements, general use                  |
+| `deepseek-r1:8b` | \~4.7GB | 8GB+         | Step-by-step reasoning, coding, smarter chat     |
+| `gpt-oss:20b`    | \~13GB  | 16GB+        | Complex tasks, creative generation, long context |
+
 
 ## 🛠️ Install Promptify
 
