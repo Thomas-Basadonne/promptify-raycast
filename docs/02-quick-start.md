@@ -272,7 +272,7 @@ You're now ready to use Promptify effectively! Here's what to explore next:
 
 1. **[User Guide](03-user-guide.md)** - Detailed feature walkthrough
 2. **[Presets Guide](04-presets-guide.md)** - Deep dive into each preset type
-3. **[Customization](09-customization.md)** - Advanced configuration options
+3. **[History Management](05-history-management.md)** - Organize and reuse your prompts
 
 ## 💡 Real-World Examples
 

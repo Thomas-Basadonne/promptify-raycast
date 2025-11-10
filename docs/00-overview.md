@@ -18,12 +18,9 @@ Our documentation is organized into logical sections to help you find what you n
 ### Technical Documentation
 - **[06-architecture.md](06-architecture.md)** - System architecture and design patterns
 - **[07-development.md](07-development.md)** - Development setup and contribution guide
-- **[08-api-reference.md](08-api-reference.md)** - Technical API reference
 
 ### Advanced Topics
-- **[09-customization.md](09-customization.md)** - Custom presets and advanced configuration
 - **[10-troubleshooting.md](10-troubleshooting.md)** - Common issues and solutions
-- **[11-deployment.md](11-deployment.md)** - Building and deploying the extension
 
 ## 🎯 What is Promptify?
 
@@ -44,10 +41,10 @@ Promptify transforms rough ideas into clear, structured prompts that get better 
 Start with [Setup Guide](01-setup.md) → [Quick Start](02-quick-start.md) → [User Guide](03-user-guide.md)
 
 ### Developers
-Jump to [Architecture](06-architecture.md) → [Development Guide](07-development.md) → [API Reference](08-api-reference.md)
+Jump to [Architecture](06-architecture.md) → [Development Guide](07-development.md) → [Troubleshooting](10-troubleshooting.md)
 
 ### Power Users
-Check out [Customization](09-customization.md) → [Advanced Configuration](06-architecture.md#configuration) → [Troubleshooting](10-troubleshooting.md)
+Check out [Advanced Workflows](03-user-guide.md#advanced-workflows) → [Custom Presets](04-presets-guide.md) → [Troubleshooting](10-troubleshooting.md)
 
 ## 🔄 Documentation Versioning
 

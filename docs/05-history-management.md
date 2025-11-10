@@ -365,4 +365,4 @@ Slack: Share successful prompts with team
 
 ---
 
-**Next**: Dive into [Customization Options](09-customization.md) to personalize Promptify for your specific workflow!
+**Next**: Learn more advanced features in the [User Guide](03-user-guide.md)!
